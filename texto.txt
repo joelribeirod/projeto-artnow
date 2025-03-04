@@ -1,0 +1,11 @@
+frontend:
+    usuario padrão:
+        land page
+        sign Up/In
+        Criar pedidos
+        Meus pedidos
+        editar perfil
+    usuario ADM:
+        visualizar usuarios e mudar seus dados (usuario para adm)
+        visualizar projetos e alterar o status
+        criar categorias
