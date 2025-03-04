@@ -1,6 +1,8 @@
+import FormGet from "../form/FormGet"
+
 function SignIn(){
     return(
-        <p>logar</p>
+        <FormGet/>
     )
 }
 

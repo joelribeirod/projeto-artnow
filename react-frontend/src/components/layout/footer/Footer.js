@@ -1,8 +1,10 @@
+import './Footer.css'
+
 function Footer(){
     return(
-        <nav>
-            footer bb
-        </nav>
+        <footer>
+            <p>Criador por Joel Ribeiro</p>
+        </footer>
     )
 }
 

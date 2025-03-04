@@ -1,0 +1,57 @@
+#mainFormPostBG{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#mainFormPostBG h3{
+    font-size: 28px;
+}
+
+#mainFormPostBG a{
+    text-decoration: none;
+}
+
+#mainFormPost{
+    width: 90%;
+    height: 80%;
+    padding-top: 20px;
+}
+
+#formPost{
+    display: flex;
+    flex-direction: column;
+}
+
+#formPost label{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#formPost input{
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+#formPost button{
+    width: auto;
+    font-size: 24px;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 0px 8px;
+    margin-top: 20px;
+    align-self: center;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+#formPost button:hover{
+    background-color: rgb(136, 248, 136);
+    transform: scale(1.08);
+}
