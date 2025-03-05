@@ -2,8 +2,11 @@ const express = require("express")
 const app = express()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
-const chaveSecreta = 'minha_Aplicação'
+const Login = require('./user')
+const Project = require('./project')
+
 
 //configs
     app.use(cors())
@@ -11,6 +14,8 @@ const chaveSecreta = 'minha_Aplicação'
 
 
 // gerenciar token JWT
+    const chaveSecreta = 'minha_Aplicação'
+
     function gerarToken(user){
         return jwt.sign(
            { userId: user.id},
@@ -34,11 +39,61 @@ const chaveSecreta = 'minha_Aplicação'
             next()
         })
     }
+//Gerenciar hash
+    //gera o hash para uma senha
+        async function criarHash(password){
+            const hashedSenha = await bcrypt.hash(password, 10)   
+            
+            return hashedSenha
+        }
+    //analisa a senha enviada com algum hash cadastrado no banco
+        async function compararHash(senhaDigitada, senhaDoBanco) {
+            if(senhaDoBanco == null || senhaDoBanco == undefined){
+                return "Comparação impossivel, hash não é valido"
+            }
+
+            const comparacao = await bcrypt.compare(senhaDigitada,senhaDoBanco)
+
+            if(comparacao){
+                return true
+            }else{
+                return false
+            }
+        }
+
 //rotas
     // rotas tabela user
-        // app.get()
+        app.post('/login/signin', (req,res) => {
+            res.send("Teste, teste")
+            // Login.findOne({
+            //     where: {nome: req.body.nome}
+            // }).then((user)=>{
+            //     const comparacao = compararHash(req.body.senha, user.senha)
 
-        // app.post()
+            //     if(!comparacao){
+            //         res.send({erro: 'Credenciais incorretas'})
+            //     }else{
+            //         const token = gerarToken(user)
+            //         res.send("usuario encontrado")
+            //     }
+            // }).catch((err)=>{
+            //     res.send({err: err})
+            // })
+        })
+
+        app.post("/login/signup", async (req,res) => {
+            const senha = await criarHash(req.body.senha)
+
+            Login.create({
+                email: req.body.email,
+                nome: req.body.nome,
+                senha: senha
+            }).then(
+                res.send({success: "Sucesso no cadastro do usuario"})
+            ).catch((err) => {
+                res.send({err: err})
+            })
+        })
 
         // app.patch()
 

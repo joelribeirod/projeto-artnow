@@ -2,23 +2,26 @@ const db = require('./db')
 const Login = db.sequelize.define('usuarios', {
     email: {
         type: db.Sequelize.STRING,
+        allowNull: false, 
         unique: true
     },
     nome: {
         type: db.Sequelize.STRING,
+        allowNull: false, 
         unique: true
     },
     hierarquia: {
         type: db.Sequelize.INTEGER,
-        default: 1
+        defaultValue: 1
     },
     senha: {
-        type: db.Sequelize.INTEGER
+        type: db.Sequelize.STRING,
+        allowNull: false
     }
 },{
-    
+    timestamps : false
 })
 
-Login.sync()
+// Login.sync({force: true})
 
 module.exports = Login
