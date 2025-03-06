@@ -36,6 +36,7 @@
     border: 1px solid black;
     border-radius: 4px;
     margin-bottom: 12px;
+    width: 100%;
 }
 
 #formPost button{
@@ -56,6 +57,38 @@
     transform: scale(1.08);
 }
 
-.erro{
+#visualizarSenhaPOST{
+    display: flex;
+    width: 140px;
+    margin-top: 10px;
+}
+
+#corrigirError{
+    display: flex;
+    border-radius: 12px;
+    border: 1px solid black;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+
+#formPost input.erro{
     border: 1px solid red;
+}
+
+.erroDigN{
+    position: absolute;
+    transform: translateY(54px);
+    color: red;
+}
+
+.erroDigE{
+    position: absolute;
+    transform: translateY(124px);
+    color: red;
+}
+
+.erroDigS{
+    position: absolute;
+    transform: translateY(192px);
+    color: red;
 }

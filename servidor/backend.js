@@ -15,12 +15,13 @@ const Project = require('./project')
 
 // gerenciar token JWT
     const chaveSecreta = 'minha_Aplicação'
+    const duracaoToken = 600
 
     function gerarToken(user){
         return jwt.sign(
            { userId: user.id},
            chaveSecreta,
-           {expiresIn: 600}
+           {expiresIn: duracaoToken}
         )
     }
 
@@ -55,44 +56,59 @@ const Project = require('./project')
             const comparacao = await bcrypt.compare(senhaDigitada,senhaDoBanco)
 
             if(comparacao){
-                return true
+                return "Senha igual"
             }else{
-                return false
+                return "Senha diferente"
             }
         }
 
 //rotas
     // rotas tabela user
         app.post('/login/signin', (req,res) => {
-            res.send("Teste, teste")
-            // Login.findOne({
-            //     where: {nome: req.body.nome}
-            // }).then((user)=>{
-            //     const comparacao = compararHash(req.body.senha, user.senha)
+            Login.findOne({
+                where: {nome: req.body.nome}
+            }).then(async (user)=>{
+                if(user){
+                    const comparacao = await compararHash(req.body.senha, user.senha)
+                    console.log(comparacao)
+                    if(comparacao === "Senha igual"){
+                        const token = gerarToken(user)
+                        res.send({success: true, token: token, duracaoToken: duracaoToken}) 
+                    }else{
+                        res.send({erro: 'Credenciais incorretas'})
+                    }
 
-            //     if(!comparacao){
-            //         res.send({erro: 'Credenciais incorretas'})
-            //     }else{
-            //         const token = gerarToken(user)
-            //         res.send("usuario encontrado")
-            //     }
-            // }).catch((err)=>{
-            //     res.send({err: err})
-            // })
+                }else{
+                    res.send({erro: "Credenciais incorretas"})
+                }
+            }).catch((err)=>{
+                res.send({err: err})
+            })
         })
 
         app.post("/login/signup", async (req,res) => {
             const senha = await criarHash(req.body.senha)
 
-            Login.create({
-                email: req.body.email,
-                nome: req.body.nome,
-                senha: senha
-            }).then(
+            try {
+                await Login.create({
+                    email: req.body.email,
+                    nome: req.body.nome,
+                    senha: senha
+                })
                 res.send({success: "Sucesso no cadastro do usuario"})
-            ).catch((err) => {
-                res.send({err: err})
-            })
+                
+            } catch (err) {
+                if (err.name === 'SequelizeUniqueConstraintError'){
+                    const erro = {
+                        error: err.errors[0].path
+                    }
+    
+                    res.status(400).send(erro)
+                }else{
+                    res.status(500).send({erroDesconhecido: "Falha no cadastro do usuário"})
+                }
+               
+            }
         })
 
         // app.patch()

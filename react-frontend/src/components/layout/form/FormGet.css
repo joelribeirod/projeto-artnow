@@ -55,3 +55,29 @@
     background-color: rgb(136, 248, 136);
     transform: scale(1.08);
 }
+
+#formGet input.erro{
+    border: 1px solid red;
+}
+
+#visualizarSenhaGET{
+    display: flex;
+    width: 140px;
+    margin: 12px 0px;
+}
+
+#corrigirProblema{
+    display: flex;
+    border-radius: 12px;
+    border: 1px solid black;
+    padding: 0px 2px;
+    cursor: pointer;
+}
+
+.erroS{
+    color: red;
+}
+
+.erroN{
+    color: red;
+}
