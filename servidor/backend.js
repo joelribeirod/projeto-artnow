@@ -19,7 +19,7 @@ const Project = require('./project')
 
     function gerarToken(user){
         return jwt.sign(
-           { userId: user.id},
+           {userId: user.id, isAdmin: user.hierarquia},
            chaveSecreta,
            {expiresIn: duracaoToken}
         )
