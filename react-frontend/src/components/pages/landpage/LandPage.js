@@ -15,8 +15,8 @@ function LandPage(){
                     Começar
                 </a>
                 <div id='desc'>
-                    <p>O projeto art now tem o intuito de facilitar a criação de artes para seus clientes sem a necessidade de comunicação</p>
-                    <p>Peça suas artes conforme a categoria que mais te agrada e receba um aviso quando algum projeto for finalizado</p>
+                    <p>O projeto art now tem o intuito de facilitar a criação de artes para seus clientes sem a necessidade de comunicação.</p>
+                    <p>Peça suas artes conforme a categoria que mais te agrada e receba um aviso quando algum projeto for finalizado.</p>
                 </div>
             </div>
             <Footer/>

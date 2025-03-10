@@ -1,4 +1,4 @@
-const db = require('./db')
+const db = require('../db')
 const Login = db.sequelize.define('usuarios', {
     email: {
         type: db.Sequelize.STRING,
@@ -25,3 +25,7 @@ const Login = db.sequelize.define('usuarios', {
 // Login.sync({force: true})
 
 module.exports = Login
+
+// Hierarquia
+    // 0 => ADM
+    // 1 => usuario normal

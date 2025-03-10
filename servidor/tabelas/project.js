@@ -1,6 +1,6 @@
-const db = require('./db')
+const db = require('../db')
 const Project = db.sequelize.define('projetos', {
-    tipo: {
+    categoria: {
         type: db.Sequelize.STRING,
         allowNull: false
     },
@@ -27,6 +27,7 @@ const Project = db.sequelize.define('projetos', {
 
 module.exports = Project
 //status
-    //0 => em andamento
-    //1 => concluido
-    //2 => recusado
+    //0 => em andamento - amarelo
+    //1 => concluido - verde
+    //2 => recusado - vermelho
+    //3 => aguardando pagamento - azul

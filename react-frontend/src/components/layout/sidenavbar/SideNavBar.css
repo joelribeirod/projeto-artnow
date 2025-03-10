@@ -7,7 +7,25 @@
     width: 180px;
     height: 100dvh;
     border-right: 1px solid black;
+    padding-top: 50px;
+    z-index: 2;
+    background-color: white;
+    transition: 0.4s ease-in-out;
+}
 
+#NavBarBG{
+    position: absolute;
+    width: 100%;
+    height: 100dvh;
+    
+}
+
+.ativo{
+    transform: translateX(0);
+}
+
+.desativo{
+    transform: translateX(-180px);
 }
 
 #NavBar a{
@@ -30,9 +48,29 @@
     gap: 10px;
 }
 
+#menuHamburguer{
+    position: absolute;
+    font-size: 40px;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+}
+
+.hamburguerAtivo{
+    transform: translateY(-50px) translateX(180px);
+}
+
+.hamburguerDesativo{
+    transform: translateY(-50px) translateX(0px);
+}
+
 @media screen and (min-width: 768px) {
     #NavBar{
         position: relative;
-        width: 210px;
+        width: 215px;
+        padding-top: 20px;
+    }
+
+    #menuHamburguer{
+        display: none;
     }
 }

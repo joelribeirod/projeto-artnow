@@ -4,8 +4,9 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-const Login = require('./user')
-const Project = require('./project')
+const Login = require('./tabelas/user')
+const Project = require('./tabelas/project')
+const Categorias = require("./tabelas/categorias")
 
 
 //configs
@@ -15,7 +16,7 @@ const Project = require('./project')
 
 // gerenciar token JWT
     const chaveSecreta = 'minha_Aplicação'
-    const duracaoToken = 600
+    const duracaoToken = 3600
 
     function gerarToken(user){
         return jwt.sign(
@@ -63,7 +64,75 @@ const Project = require('./project')
         }
 
 //rotas
+    // rotas tabela categorias
+        app.get("/categorias",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Categorias.findAll().then((resp)=>{
+                    res.send(resp)
+                }).catch((err) => {
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Para acessar essa rota você deve ser um ADM"})
+            }
+            
+        })
+
+        app.post("/categorias",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Categorias.create({
+                    nome: req.body.categoriaNome
+                }).then(()=>{
+                    res.send({sucesso: "Sucesso ao cadastrar a categoria"})
+                }).catch((err)=>{
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Para acessar essa rota você deve ser um ADM"})
+            }
+        })
+
+        app.patch("/categorias/:id",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Categorias.update({
+                    nome: req.body.categoriaAtualizada
+                },{
+                    where: {'id': req.params.id}
+                }).then(
+                    res.send({sucesso: "Categoria atualizada com sucesso"})
+                ).catch((err)=>{
+                    res.send('err')
+                })
+            }else{
+                res.send({erro: "Para acessar essa rota você deve ser um ADM"})
+            }
+        })
+
+        app.delete('/categorias/:id',verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Categorias.destroy({
+                    where:{'id': req.params.id}
+                }).then(
+                    res.send({sucesso: "Categoria deletada com sucesso"})
+                ).catch((err)=>{
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Para acessar essa rota você deve ser um ADM"})
+            }
+        })
+
     // rotas tabela user
+        app.get('/login/user',verificarToken, (req, res) => {
+            Login.findOne({
+                where: {'id': req.usuario.userId}
+            }).then((user) => {
+                res.send(user)
+            }).catch((err)=>{
+                res.status(401).send(err)
+            })
+        })
+
         app.post('/login/signin', (req,res) => {
             Login.findOne({
                 where: {nome: req.body.nome}
