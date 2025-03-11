@@ -66,16 +66,11 @@ const Categorias = require("./tabelas/categorias")
 //rotas
     // rotas tabela categorias
         app.get("/categorias",verificarToken, (req,res)=>{
-            if(req.usuario.isAdmin === 0){
-                Categorias.findAll().then((resp)=>{
-                    res.send(resp)
-                }).catch((err) => {
-                    res.send(err)
-                })
-            }else{
-                res.send({erro: "Para acessar essa rota você deve ser um ADM"})
-            }
-            
+            Categorias.findAll().then((resp)=>{
+                res.send(resp)
+            }).catch((err) => {
+                res.send(err)
+            })
         })
 
         app.post("/categorias",verificarToken, (req,res)=>{
@@ -186,7 +181,9 @@ const Categorias = require("./tabelas/categorias")
     // rotas tabela project
         // app.get()
 
-        // app.post()
+        app.post("/projetos",verificarToken, (req,res)=>{
+            
+        })
 
         // app.patch()
 

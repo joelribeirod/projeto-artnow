@@ -26,10 +26,6 @@ function MainFeatures(){
             navigate('/login/signin')
         }
     },[navigate])
-    // to-do: analisar se esse segundo useEffect é util mesmo
-    useEffect(()=>{
-        console.log(isAdmin)
-    },[isAdmin])
 
     return(
         <div id='mainFeatures'>
