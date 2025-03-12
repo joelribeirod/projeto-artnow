@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const multer = require("multer")
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
@@ -13,6 +14,16 @@ const Categorias = require("./tabelas/categorias")
     app.use(cors())
     app.use(express.json())
 
+    const storage = multer.diskStorage({
+        destination: (req,file,cb)=>{
+            cb(null, "uploads/")
+        },
+        filename: (req,file,cb)=>{
+            cb(null,Date.now() + "-" + file.originalname)
+        }
+    })
+
+    const upload = multer({ storage })
 
 // gerenciar token JWT
     const chaveSecreta = 'minha_Aplicação'
@@ -179,10 +190,34 @@ const Categorias = require("./tabelas/categorias")
 
         // app.delete()
     // rotas tabela project
-        // app.get()
+        app.get("/pedidos", verificarToken, (req, res)=>{
+            Project.findAll({
+                where: {'clienteId': req.usuario.userId}
+            }).then((pedidos)=>{
+                res.send({
+                    success: "Requisição realizada com sucesso",
+                    pedidos: pedidos
+                })
+            }).catch((err)=>{
+                res.send("Erro na requisição: " + err)
+            })
+        })
 
-        app.post("/projetos",verificarToken, (req,res)=>{
-            
+        app.post("/pedidos",verificarToken, upload.array("imagens", 2), (req,res)=>{
+            console.log(req.files)
+            const filePaths = req.files.map((file) => `http://localhost:3000/uploads/${file.filename}`)
+
+            Project.create({
+                categoria: req.body.categoria,
+                desc: req.body.desc,
+                ref1: filePaths[0],
+                ref2: filePaths[1],
+                clienteId: req.usuario.userId
+            }).then(
+                res.send({success: "Sucesso ao cadastrar o pedido"})
+            ).catch((err)=>{
+                res.send({erro: err})
+            })
         })
 
         // app.patch()
@@ -190,6 +225,9 @@ const Categorias = require("./tabelas/categorias")
         // app.delete()
     //
 //
+
+app.use("/uploads", express.static("uploads"));
+
 app.listen(8081, ()=> {
     console.log("Servidor rodando...")
 })

@@ -1,7 +1,7 @@
 const db = require('../db')
 const Project = db.sequelize.define('projetos', {
     categoria: {
-        type: db.Sequelize.STRING,
+        type: db.Sequelize.INTEGER,
         allowNull: false
     },
     desc: {
@@ -9,21 +9,19 @@ const Project = db.sequelize.define('projetos', {
         allowNull: false
     },
     ref1: {
-        type: db.Sequelize.BLOB
+        type: db.Sequelize.STRING
     },
     ref2: {
-        type: db.Sequelize.BLOB
+        type: db.Sequelize.STRING
     },
     status: {
         type: db.Sequelize.INTEGER,
-        defaulValue: 0
+        defaultValue: 0
     },
     clienteId: {
         type: db.Sequelize.INTEGER
     }
 })
-
-// Project.sync({force: true})
 
 module.exports = Project
 //status

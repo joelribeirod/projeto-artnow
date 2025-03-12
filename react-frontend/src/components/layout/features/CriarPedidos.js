@@ -1,15 +1,17 @@
 import './CriarPedidos.css'
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"
 
 function CriarPedidos() {
+    const navigate = useNavigate()
     const token = localStorage.getItem('token')
 
     const [categorias, setCategorias] = useState([])
 
     const [categoriaSelecionada, setCategoriaSelecionada] = useState()
-    const [referenciaUm, setReferenciaUm] = useState()
-    const [referenciaDois, setReferenciaDois] = useState()
+    const [referenciaUm, setReferenciaUm] = useState(null)
+    const [referenciaDois, setReferenciaDois] = useState(null)
 
     const [desc, setDesc] = useState(null)
 
@@ -49,7 +51,36 @@ function CriarPedidos() {
             return null
         }
 
-        console.log(referenciaUm)
+        const formData = new FormData()
+        if(referenciaUm){
+            formData.append("imagens", referenciaUm)
+        }
+        if(referenciaDois){
+            formData.append("imagens", referenciaDois)
+        }
+
+        formData.append("categoria", categoriaSelecionada)
+        formData.append("desc", desc)
+
+        let promise = fetch("http://localhost:8081/pedidos", {
+            method: "POST",
+            headers:{
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+
+        Promise.resolve(promise).then((resp)=>{
+            if(resp.erro){
+                window.alert("Ops! houve algum erro ao cadastrar os dados: " + resp)        
+            }else{
+                navigate('/mainfeatures/meuspedidos')
+            }
+        }).catch((err)=>{
+            console.log('Erro ao cadastrar pedido: ' + err)
+        }).finally(()=>{
+            console.log("Requisição realizada com sucesso")
+        })
     }
 
     return (
@@ -89,7 +120,7 @@ function CriarPedidos() {
                             ) : (
                                 <div id="ref1">               
                                     <p>Clique para fazer o upload</p>
-                                    <input type="file" id="inputRef1" onChange={(e)=>{
+                                    <input type="file" id="inputRef1" accept="image/*" onChange={(e)=>{
                                         const file = e.target.files[0]
                                         if (file) {
                                         setReferenciaUm(file);
@@ -107,7 +138,7 @@ function CriarPedidos() {
                             ) : (
                                 <div id="ref2">               
                                     <p>Clique para fazer o upload</p>
-                                    <input type="file" id="inputRef2" onChange={(e)=>{
+                                    <input type="file" id="inputRef2" accept="image/*" onChange={(e)=>{
                                         const file = e.target.files[0]
                                         if (file) {
                                         setReferenciaDois(file);

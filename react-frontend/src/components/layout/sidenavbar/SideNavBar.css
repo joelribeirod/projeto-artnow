@@ -1,6 +1,6 @@
 #NavBar{
-    /* position absolute pro mobile, pra pc provavelmente n vai precisar */
-    position: absolute;
+    /* position fixed pro mobile, pra pc provavelmente n vai precisar */
+    position: fixed;
     display: flex;
     flex-direction: column;
     gap: 20px;
