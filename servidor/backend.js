@@ -205,7 +205,7 @@ const Categorias = require("./tabelas/categorias")
 
         app.post("/pedidos",verificarToken, upload.array("imagens", 2), (req,res)=>{
             console.log(req.files)
-            const filePaths = req.files.map((file) => `http://localhost:3000/uploads/${file.filename}`)
+            const filePaths = req.files.map((file) => `http://localhost:8081/uploads/${file.filename}`)
 
             Project.create({
                 categoria: req.body.categoria,

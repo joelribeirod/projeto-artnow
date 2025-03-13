@@ -127,7 +127,7 @@ function FormPost(){
                         } //resolver bug: quando clicar em ver senha e tenta continuar digitando a senha, somente o input acaba voltando para o type password, sendo que deveria continuar sendo text
                     }}>
                         <div id="corrigirError">
-                            <span class="material-symbols-outlined" id="desver">visibility</span>
+                            <span className="material-symbols-outlined" id="desver">visibility</span>
                             <p id="ver">Ver senha</p>
                         </div>
                     </div>

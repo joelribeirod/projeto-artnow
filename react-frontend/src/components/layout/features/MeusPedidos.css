@@ -8,6 +8,18 @@
     height: 100%;
 }
 
+.mainDivPedido{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mainDivPedido h1{
+    margin-bottom: 20px;
+}
+
 .divPedido{
     display: flex;
     align-items: center;
@@ -17,6 +29,87 @@
     min-height: 380px;
     border: 1px solid black;
     text-align: center;
+    margin-top: 12px;
+}
+
+.infoPedido{
+    width: 100%;
+    padding: 20px;
+}
+
+.infoDesc{
+    margin: 10px 0px;
+    text-align: left;
+}
+
+.infoDesc p {
+    text-indent: 4px;
+    margin-left: 4px;
+}
+
+.infoStatus{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 10px 0px;
+}
+
+.infoStatus div{
+    display: flex;
+    gap: 12px;
+    margin-left: 4px;
+}
+
+.infoCategoria{
+    margin: 10px 0px;
+    text-align: left;
+}
+
+.infoCategoria p{
+    margin-left: 8px;
+}
+
+.infoRefs{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.infoRefs div{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 12px;
+}
+
+.infoRefs div img{
+    min-width: 120px;
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.pedidosBtns{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    padding: 10px;
+    gap: 12px;
+}
+
+.pedidosBtns p {
+    padding: 0px 8px;
+    font-size: 24px;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: rgb(247, 94, 94);
+    cursor: pointer;
+}
+
+.pedidosBtns span{
+    font-size: 24px;
+    transform: translateY(4px);
 }
 
 .divRedirect{
@@ -39,10 +132,38 @@
 .divRedirect p{
     font-size: 20px;
 }
-/* 
+
+.circle{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.yellowStatus{
+    background-color: yellow;
+}
+
+.greenStatus{
+    background-color: rgb(17, 182, 17);
+}
+
+.redStatus{
+    background-color: red;
+}
+
+.blueStatus{
+    background-color: rgb(0, 110, 255);
+}
+
 @media screen and (min-width: 768px) {
     .divPedido{
-        width: 380px;
-        height: 500px;
+        min-width: 280px;
+        width: 40%;
+        max-width: 380px;
     }
-} */
+    
+    .mainDivPedido{
+        min-height: 500px;
+    }
+}

@@ -105,7 +105,7 @@ function FormGet(){
                                 inputSenha.type = 'password'
                             }
                         }}>
-                            <span class="material-symbols-outlined" id="desver">visibility</span>
+                            <span className="material-symbols-outlined" id="desver">visibility</span>
                             <p id="ver">Ver senha</p>
                         </div>
                     </div>
