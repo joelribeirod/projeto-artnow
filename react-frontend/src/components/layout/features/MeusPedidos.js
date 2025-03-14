@@ -28,7 +28,6 @@ function MeusPedidos() {
         Promise.resolve(promise).then((resp)=>{
             setPedidoUm(resp.pedidos[0])
             setPedidoDois(resp.pedidos[1])
-            console.log(resp)
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
@@ -46,13 +45,46 @@ function MeusPedidos() {
         }).then(
             (resp)=>resp.json()
         ).then((categorias) =>{
-            console.log(categorias)
             setCategorias(categorias)
         }).catch((err) => {
             console.log(err)
         })
     },[])
 
+    function deletarProjeto(project) {
+        if(project === 'um'){
+            let promise = fetch(`http://localhost:8081/pedidos/${pedidoUm.id}`,{
+                method: "DELETE",
+                headers: {'Content-Type':'application/json'}
+            }).then(
+                (resp)=>resp.json()
+            )
+
+            Promise.resolve(promise).then(
+                window.location.reload()
+            ).catch((err)=>{
+                console.log("Erro ao realizar a requisição: " + err)
+            }).finally(()=>{
+                console.log('Requisição iniciada')
+            })
+
+        }else if(project === 'dois'){
+            let promise = fetch(`http://localhost:8081/pedidos/${pedidoDois.id}`,{
+                method: "DELETE",
+                headers: {'Content-Type':'application/json'}
+            }).then(
+                (resp)=>resp.json()
+            )
+
+            Promise.resolve(promise).then(
+                window.location.reload()
+            ).catch((err)=>{
+                console.log("Erro ao realizar a requisição: " + err)
+            }).finally(()=>{
+                console.log('Requisição finalizada')
+            })
+        }
+    }
 
     return(
         <div id='mainPedidos'>
@@ -70,7 +102,7 @@ function MeusPedidos() {
                                 {categorias.filter(
                                     (categoria) => categoria.id === pedidoUm.categoria
                                 ).map((categoria)=>(
-                                    <p>{categoria.nome}</p>
+                                    <p key={categoria.nome}>{categoria.nome}</p>
                                 ))}
                             </div>
                             <div className='infoStatus'>
@@ -117,7 +149,33 @@ function MeusPedidos() {
                             </div>
                         </div>
                         <div className='pedidosBtns'>
-                            <p><span className="material-symbols-outlined">delete</span> Cacelar Pedido</p>
+                            {confirmDelUm ? (
+                                <p id='delP1' onClick={()=>{deletarProjeto('um')}}>
+                                    Deseja mesmo cancelar o pedido?
+                                </p>
+                            ) : (
+                                <div>
+                                    {pedidoUm.status === 0 ? (
+                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                            <span className="material-symbols-outlined">delete</span> Cacelar Pedido
+                                        </p>
+                                    ) : pedidoUm.status === 1 ? (
+                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                            Apagar
+                                        </p>
+                                    ) : pedidoUm.status === 2 ? (
+                                        <p> 
+                                            {/* api de pagamento */}
+                                            <abbr title="Realize o pagamento para receber o pedido">Realizar Pagamento</abbr>
+                                        </p>
+                                    ) : (
+                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                            Apagar
+                                        </p>
+                                    )} 
+                                </div>
+                            )}  
+                            
                         </div>
                     </div>
                 ) : (
@@ -143,7 +201,7 @@ function MeusPedidos() {
                                 {categorias.filter(
                                     (categoria) => categoria.id === pedidoDois.categoria
                                 ).map((categoria)=>(
-                                    <p>{categoria.nome}</p>
+                                    <p key={categoria.nome}>{categoria.nome}</p>
                                 ))}
                             </div>
                             <div className='infoStatus'>
@@ -189,11 +247,34 @@ function MeusPedidos() {
                                 
                             </div>
                         </div>
-                        <div className='pedidosBtns'>
-                        <p>
-
-                            <span className="material-symbols-outlined">delete</span> Cacelar Pedido
-                        </p>
+                        <div className='pedidosBtns'> 
+                            {confirmDelDois ? (
+                                <p id='delP2' onClick={()=>{deletarProjeto('dois')}}>
+                                    Deseja mesmo cancelar o pedido?
+                                </p>
+                            ) : (
+                                <div>
+                                    {pedidoDois.status === 0 ? (
+                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                            <span className="material-symbols-outlined">delete</span> Cacelar Pedido
+                                        </p>
+                                    ) : pedidoDois.status === 1 ? (
+                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                            Apagar
+                                        </p>
+                                    ) : pedidoDois.status === 2 ? (
+                                        <p> 
+                                            {/* api de pagamento */}
+                                            <abbr title="Realize o pagamento para receber o pedido">Realizar Pagamento</abbr>
+                                        </p>
+                                    ) : (
+                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                            Apagar
+                                        </p>
+                                    )} 
+                                </div>
+                            )}       
+                                 
                         </div>
                     </div>
                 ):(

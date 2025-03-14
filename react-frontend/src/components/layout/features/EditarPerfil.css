@@ -5,7 +5,7 @@
     flex-direction: column;
     border: 1px solid black;
     width:350px;
-    height: 450px;
+    height: 466px;
 }
 
 #editPerfilForm{
@@ -33,8 +33,34 @@
 }
 
 #editPerfilBtns button{
-    width: 160px;
+    width: 155px;
     font-size: 18px;
     padding: 4px;
     cursor: pointer;
+}
+
+#editBtns{
+    display: flex;
+    gap: 4px;
+}
+
+#delDiv{
+    width: 100%;
+    border: 1px solid red;
+    border-bottom: 0px;
+    padding: 3.5px;
+}
+
+#delDiv input{
+    padding: 4px 2px;
+    font-size: 16px;
+    width: 155px;
+    border: 1px solid black;
+    border-radius: 4px;
+    margin: 8px 0px;
+}
+
+#delDiv div{
+    display: flex;
+    gap: 4px;
 }

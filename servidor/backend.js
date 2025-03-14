@@ -4,6 +4,8 @@ const multer = require("multer")
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const path = require('path')
+const fs = require('fs')
 
 const Login = require('./tabelas/user')
 const Project = require('./tabelas/project')
@@ -145,7 +147,6 @@ const Categorias = require("./tabelas/categorias")
             }).then(async (user)=>{
                 if(user){
                     const comparacao = await compararHash(req.body.senha, user.senha)
-                    console.log(comparacao)
                     if(comparacao === "Senha igual"){
                         const token = gerarToken(user)
                         res.send({success: true, token: token, duracaoToken: duracaoToken}) 
@@ -186,9 +187,57 @@ const Categorias = require("./tabelas/categorias")
             }
         })
 
-        // app.patch()
+        app.patch("/login/edituser/:id",verificarToken, async (req,res)=>{
+            const senha = req.body.senha
+            let senhaHasheada = null
 
-        // app.delete()
+            const updateUser = {
+                email: req.body.email,
+                nome: req.body.nome
+            }
+
+            if(senha){
+                senhaHasheada = await criarHash(senha)
+                updateUser['senha'] = senhaHasheada
+            }
+
+            try {
+                await Login.update(updateUser, {
+                    where: {'id': req.params.id}
+                })
+                res.send({success: "Sucesso ao atualizar os dados"})
+            } catch (err) {
+                if (err.name === 'SequelizeUniqueConstraintError'){
+                    res.status(400).send({erro: err.errors[0].path})
+                }else{
+                    res.status(500).send({erroDesconhecido: err.message})
+                }
+            }
+        })
+
+        //rota de delete
+        app.post("/login/deleteuser/:id",verificarToken, (req,res)=>{
+            Login.findOne({
+                where: {'id': req.usuario.userId}
+            }).then(async (user)=>{
+                const comparacao = await compararHash(req.body.senha, user.senha)
+
+                if(comparacao === "Senha igual"){
+                    Login.destroy({
+                        where: {'id': req.params.id}
+                    }).then(
+                        res.send({sucesso: "Conta deletada com sucesso"})
+                    ).catch((err)=>{
+                        res.send(err)
+                    })
+                }else{
+                    res.send({erro: 'Credenciais incorretas'})
+                }
+            }).catch((err)=>{
+                res.send(err)
+            })      
+        })
+
     // rotas tabela project
         app.get("/pedidos", verificarToken, (req, res)=>{
             Project.findAll({
@@ -220,9 +269,39 @@ const Categorias = require("./tabelas/categorias")
             })
         })
 
-        // app.patch()
+        app.delete("/pedidos/:id", async (req,res)=>{
+            try {
+                const pedido = await Project.findByPk(req.params.id)
 
-        // app.delete()
+                if(!pedido){
+                    return res.send({erro: "Nenhum projeto encontrado!"})
+                }
+
+                const imgs = [pedido.ref1, pedido.ref2]
+                imgs.forEach((img)=>{
+                    if(img){
+                        const rota = path.join(__dirname, '.', 'uploads',path.basename(img))
+                        fs.unlink(rota, (err)=>{
+                            if(err){
+                                console.log(err)
+                            }
+                        })
+                    }
+                })
+
+                Project.destroy(
+                    {where: {'id': req.params.id}}
+                ).then(
+                    res.send({sucesso: "Pedido deletado!"})
+                ).catch((err)=>{
+                    res.send({erro: "Erro durante o deletar do pedido"})
+                })
+                
+            } catch (err) {
+                res.send({erro: "erro" + err})
+            }
+            
+        })
     //
 //
 

@@ -1,7 +1,10 @@
+import { useNavigate} from "react-router-dom";
 import { useEffect, useState } from 'react'
 import './SideNavBar.css'
 
 function SideNavBar({isAdmin}){
+    const navigate = useNavigate()
+
     const [position, setPosition] = useState(false)
     const [positionBg, setPositionBg]= useState(false)
     const [tamanho, setTamanho] = useState(window.innerWidth)
@@ -44,6 +47,12 @@ function SideNavBar({isAdmin}){
         }
     })
 
+    function deslogar(){
+        localStorage.removeItem('token')
+        localStorage.removeItem('tokenExpiraEm')
+        navigate('/login/signin')
+    }
+
     return (
         <div id='NavBar'>
             <span className={position ? "hamburguerAtivo material-symbols-outlined" : "hamburguerDesativo material-symbols-outlined"} id="menuHamburguer" onClick={mudarTamanho}>menu</span>
@@ -58,7 +67,9 @@ function SideNavBar({isAdmin}){
                     <a href="/mainfeatures/criarcategorias">Nova Categoria</a>
                     <hr/>
                 </div> }
-                <button id='deslogarBtn'>Deslogar</button>
+                <button id='deslogarBtn' onClick={()=>{
+                    deslogar()
+                }}>Deslogar</button>
             </div>
             <div id='mainNavBarBG' className={positionBg ? 'ativarBg' : 'desativarBg'}>
 

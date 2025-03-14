@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import { useNavigate } from "react-router-dom"
 
 import './FormPost.css'
@@ -65,7 +65,6 @@ function FormPost(){
             resp.json()
         ).then((data)=>{
             if(data.success){
-                window.alert(data.success)
                 navigate('/login/signin')
             }else if(data.error){
                 if(data.error === 'nome'){
