@@ -78,6 +78,7 @@
 
 .infoRefs div{
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: 12px;
     padding-top: 12px;

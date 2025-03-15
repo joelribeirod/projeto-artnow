@@ -31,7 +31,7 @@ function EditarPerfil() {
         }).catch((err) => {
             console.log(err)
         })
-    },[])
+    },[token])
 
     function edit(){
         const inome = document.getElementById('inome')
@@ -80,7 +80,7 @@ function EditarPerfil() {
         }
 
         if(Object.keys(dados).length < 1){
-            console.log('nenhum dado editado')
+            window.alert('nenhum dado editado')
             return null
         }
         
@@ -94,7 +94,7 @@ function EditarPerfil() {
         }).then((resp) => resp.json())
 
         Promise.resolve(promise).then(
-            // window.location.reload()
+            window.location.reload()
         ).catch((err)=>{
             console.log(err)
         }).finally(()=>{console.log('requisição finalizada')})

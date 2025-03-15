@@ -15,6 +15,7 @@ import './App.css';
     import CriarPedidos from "./components/layout/features/CriarPedidos";
     import EditarPerfil from "./components/layout/features/EditarPerfil";
     import MeusPedidos from "./components/layout/features/MeusPedidos";
+    import Projeto from "./components/layout/features/Projeto";
 //
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="criarpedidos" element={<CriarPedidos />}/>
           <Route path="meuspedidos" element={<MeusPedidos />}/>
           <Route path="admprojetos" element={<AdmProjetos />}/>
+          <Route path="admprojetos/projeto/:id" element={<Projeto />}/>
           <Route path="criarcategorias" element={<CriarCategorias />}/>
         </Route>
 

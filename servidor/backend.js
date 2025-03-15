@@ -216,7 +216,32 @@ const Categorias = require("./tabelas/categorias")
         })
 
         //rota de delete
-        app.post("/login/deleteuser/:id",verificarToken, (req,res)=>{
+        app.post("/login/deleteuser/:id",verificarToken, async (req,res)=>{
+            const pedidosCliente = await Project.findAll({
+                where: {'clienteId': req.usuario.userId}
+            })
+
+            if(pedidosCliente){
+                pedidosCliente.forEach((pedido)=>{
+                    const imgs = [pedido.ref1, pedido.ref2]
+                    imgs.forEach((img)=>{
+                        if(img){
+                            const rota = path.join(__dirname, '.', 'uploads',path.basename(img))
+                            fs.unlink(rota, (err)=>{
+                                if(err){
+                                    console.log(err)
+                                }
+                            })
+                        }
+                    })
+                })
+            }
+
+            Project.destroy({
+                where: {'clienteId' : req.usuario.userId}
+            })
+
+
             Login.findOne({
                 where: {'id': req.usuario.userId}
             }).then(async (user)=>{
@@ -302,7 +327,22 @@ const Categorias = require("./tabelas/categorias")
             }
             
         })
-    //
+    // rotas tabela project ADM
+        app.get("/pedidos/pedidosADM",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Project.findAll().then((pedidos)=>{
+                    if(pedidos){
+                        res.send(pedidos)
+                    }else{
+                        res.send({erro: "Nenhum projeto cadastrado"})
+                    }           
+                }).catch((err)=>{
+                    res.send({err: err})
+                })
+            }else{
+                res.send({erro: "Você deve ser um adm para acessar essa rota"})
+            }
+        })
 //
 
 app.use("/uploads", express.static("uploads"));
