@@ -39,7 +39,21 @@
     resize: none;
     width: 80%;
     font-size: 20px;
+    padding: 4px;
     border: 1px solid black;
+}
+
+#IDesc::-webkit-scrollbar-track {
+    background-color: #F4F4F4;
+}
+
+#IDesc::-webkit-scrollbar {
+    width: 4px;
+    background: #F4F4F4;
+}
+
+#IDesc::-webkit-scrollbar-thumb {
+    background: #cccccc;
 }
 
 #categorias select{
@@ -114,4 +128,16 @@
     width: 160px;
     font-size: 20px;
     padding: 4px;
+}
+
+#divTam{
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+    width: 80%;
+    margin: 4px 0px;
+}
+
+.erro{
+    color: red;
 }

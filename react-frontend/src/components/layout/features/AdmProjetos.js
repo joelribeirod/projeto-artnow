@@ -9,7 +9,7 @@ function AdmProjetos() {
     const [categorias, setCategorias] = useState([])
 
     useEffect(()=>{
-        let promise = fetch('http://localhost:8081/pedidos/pedidosADM', {
+        let promise = fetch('http://localhost:8081/pedidos/admGetAll', {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -52,21 +52,27 @@ function AdmProjetos() {
 
     return(
         <div id="mainAdmProjetosBg">
+            <div id="filtro">
+                filtrando...
+            </div>
             <div id="mainAdmProjetos">
+                
                 {pedidos ? (
                     pedidos.map(pedido => (
-                        <div className="teste">
+                        <div className="pedido">
                             <a href={`admprojetos/projeto/${pedido.id}`} className="detalhes">
                                 <p className="pedidoDesc">{limitarTexto(pedido.desc, 50)}</p>
 
                                 {pedido.status === 0 ? (
                                     <span className="yellowCircle"></span>
-                                ) : pedido.satus === 1 ? (
+                                ) : pedido.status === 1 ? (
                                     <span className="greenCircle"></span>
                                 ) : pedido.status === 2 ? (
                                     <span className="redCircle"></span>
-                                ) : (
+                                ) : pedido.status === 3 ? (
                                     <span className="blueCircle"></span>
+                                ) : (
+                                    <span className="redCircle">erro</span>
                                 )}
 
                                 {categorias.filter(
@@ -76,39 +82,12 @@ function AdmProjetos() {
                                 ))}
                             </a>
                         </div>
+                        
                     ))
                 ):(
                     <p id="aviso">Nenhum pedido registrado ainda!</p>
                 )}
 
-
-                {/* <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div>
-                <div className="teste">
-
-                </div> */}
             </div>
         </div>
     )

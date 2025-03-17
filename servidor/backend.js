@@ -294,7 +294,7 @@ const Categorias = require("./tabelas/categorias")
             })
         })
 
-        app.delete("/pedidos/:id", async (req,res)=>{
+        app.delete("/pedidos/:id",verificarToken, async (req,res)=>{
             try {
                 const pedido = await Project.findByPk(req.params.id)
 
@@ -328,7 +328,24 @@ const Categorias = require("./tabelas/categorias")
             
         })
     // rotas tabela project ADM
-        app.get("/pedidos/pedidosADM",verificarToken, (req,res)=>{
+        app.get("/pedidos/admGetUser/:id", verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Login.findOne({
+                    where: {'id': req.params.id}
+                }).then((user)=>{
+                    if(user){
+                        res.send({nome: user.nome, email: user.email})
+                    }else{
+                        res.send({err: "Usuario não encontrado!"})
+                    }
+                }).catch((err)=>{
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Você deve ser um adm para acessar essa rota"})
+            }
+        })
+        app.get("/pedidos/admGetAll",verificarToken, (req,res)=>{
             if(req.usuario.isAdmin === 0){
                 Project.findAll().then((pedidos)=>{
                     if(pedidos){
@@ -343,6 +360,42 @@ const Categorias = require("./tabelas/categorias")
                 res.send({erro: "Você deve ser um adm para acessar essa rota"})
             }
         })
+
+        app.get("/pedidos/admGetOne/:id",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Project.findOne({
+                    where: {'id': req.params.id}
+                }).then((pedido)=>{
+                    if(pedido){
+                        res.send(pedido)
+                    }else{
+                        res.send({err: "Não existe nenhum projeto com esse id!"})
+                    }
+                   
+                }).catch((err)=>{
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Você deve ser um adm para acessar essa rota"})
+            }
+        })
+
+        app.patch("/pedidos/admAlterarStatus/:id",verificarToken, (req,res)=>{
+            if(req.usuario.isAdmin === 0){
+                Project.update({
+                    status: req.body.status
+                },{
+                    where: {'id': req.params.id}
+                }).then(
+                    res.send({success: "Dados alterados com sucesso"})
+                ).catch((err)=>{
+                    res.send(err)
+                })
+            }else{
+                res.send({erro: "Você deve ser um adm para acessar essa rota"})
+            }
+        })
+    //
 //
 
 app.use("/uploads", express.static("uploads"));

@@ -12,8 +12,10 @@ function CriarPedidos() {
     const [categoriaSelecionada, setCategoriaSelecionada] = useState()
     const [referenciaUm, setReferenciaUm] = useState(null)
     const [referenciaDois, setReferenciaDois] = useState(null)
+    const [tam, setTam] = useState(0)
+    const [erroTam, setErroTam] = useState(false)
 
-    const [desc, setDesc] = useState(null)
+    const [desc, setDesc] = useState('')
 
 
     useEffect(()=>{
@@ -30,7 +32,16 @@ function CriarPedidos() {
         }).catch((err) => {
             console.log(err)
         })
-    },[])
+    },[token])
+
+    useEffect(()=>{
+        setTam(desc.length)
+        if(desc.length > 250){
+            setErroTam(true)
+        }else{
+            setErroTam(false)
+        }
+    }, [desc])
 
     function removerFile(file) {
         if(file === 'um'){
@@ -48,6 +59,11 @@ function CriarPedidos() {
 
         if(!categoriaSelecionada || categoriaSelecionada === null || categoriaSelecionada === undefined){
             window.alert('Selecione a categoria do projeto')
+            return null
+        }
+
+        if(erroTam){
+            window.alert('Reduza o tamanho do texto')
             return null
         }
 
@@ -93,6 +109,10 @@ function CriarPedidos() {
                         <textarea rows="6" id="IDesc" placeholder="Descreva seu projeto aqui" onChange={(e)=>{
                             setDesc(e.target.value)
                         }}></textarea>
+                        <div id='divTam'>
+                            {erroTam && <p className='erro'>O tamanho não deve superar 250!</p>}
+                            <p>{tam}/250</p>
+                        </div>
                     </div>
                     <div id="categorias">
                         <h3>Selecione uma categoria: </h3>

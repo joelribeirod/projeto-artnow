@@ -33,7 +33,7 @@ function MeusPedidos() {
         }).finally(()=>{
             console.log("Fetch realizado")
         })
-    }, [])
+    }, [token])
 
     useEffect(()=>{
         fetch('http://localhost:8081/categorias', {
@@ -49,13 +49,16 @@ function MeusPedidos() {
         }).catch((err) => {
             console.log(err)
         })
-    },[])
+    },[token])
 
     function deletarProjeto(project) {
         if(project === 'um'){
             let promise = fetch(`http://localhost:8081/pedidos/${pedidoUm.id}`,{
                 method: "DELETE",
-                headers: {'Content-Type':'application/json'}
+                headers: {
+                    'Content-Type':'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             }).then(
                 (resp)=>resp.json()
             )
@@ -71,7 +74,10 @@ function MeusPedidos() {
         }else if(project === 'dois'){
             let promise = fetch(`http://localhost:8081/pedidos/${pedidoDois.id}`,{
                 method: "DELETE",
-                headers: {'Content-Type':'application/json'}
+                headers: {
+                    'Content-Type':'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             }).then(
                 (resp)=>resp.json()
             )
@@ -157,7 +163,7 @@ function MeusPedidos() {
                                 <div>
                                     {pedidoUm.status === 0 ? (
                                         <p onClick={()=>{setConfirmDelUm(true)}}>
-                                            <span className="material-symbols-outlined">delete</span> Cacelar Pedido
+                                            <span className="material-symbols-outlined">delete</span> Cancelar Pedido
                                         </p>
                                     ) : pedidoUm.status === 1 ? (
                                         <p onClick={()=>{setConfirmDelUm(true)}}>
@@ -256,7 +262,7 @@ function MeusPedidos() {
                                 <div>
                                     {pedidoDois.status === 0 ? (
                                         <p onClick={()=>{setConfirmDelDois(true)}}>
-                                            <span className="material-symbols-outlined">delete</span> Cacelar Pedido
+                                            <span className="material-symbols-outlined">delete</span> Cancelar Pedido
                                         </p>
                                     ) : pedidoDois.status === 1 ? (
                                         <p onClick={()=>{setConfirmDelDois(true)}}>

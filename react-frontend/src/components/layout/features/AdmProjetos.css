@@ -2,17 +2,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
+    height: 100%;
 }
 
 #mainAdmProjetos{
     width: 90%;
-    height: 680px;
+    min-height: 680px;
     border: 1px solid black;
 }
 
-.teste{
-    border: 1px solid black;
+#filtro{
+    top: 0;
+    position: absolute;
+}
+
+.pedido{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     width: 100%;
     height: 40px;
     margin-bottom: 40px;
@@ -23,6 +31,7 @@
     width: 100%;
     text-decoration: none;
     padding: 8px;
+    color: black;
 }
 
 .pedidoDesc{
