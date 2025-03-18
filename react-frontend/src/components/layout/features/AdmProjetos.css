@@ -9,13 +9,24 @@
 
 #mainAdmProjetos{
     width: 90%;
-    min-height: 680px;
+    min-height: 200px;
     border: 1px solid black;
+    margin-top: 20px;
 }
 
 #filtro{
     top: 0;
+    right: 0;
     position: absolute;
+    margin: 10px;
+}
+
+#filtro select{
+    width: 186px;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 2px;
 }
 
 .pedido{

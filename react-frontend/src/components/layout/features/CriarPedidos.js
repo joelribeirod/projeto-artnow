@@ -84,13 +84,13 @@ function CriarPedidos() {
                 'Authorization': `Bearer ${token}`
             },
             body: formData
-        })
+        }).then((resp)=>resp.json())
 
         Promise.resolve(promise).then((resp)=>{
-            if(resp.erro){
-                window.alert("Ops! houve algum erro ao cadastrar os dados: " + resp)        
-            }else{
+            if(resp.success){
                 navigate('/mainfeatures/meuspedidos')
+            }else{
+                window.alert("Ops! houve algum erro ao cadastrar os dados: " + resp.erro)        
             }
         }).catch((err)=>{
             console.log('Erro ao cadastrar pedido: ' + err)

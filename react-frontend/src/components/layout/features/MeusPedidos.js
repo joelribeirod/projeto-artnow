@@ -92,6 +92,10 @@ function MeusPedidos() {
         }
     }
 
+    function gerarQRCode(){
+        window.alert("Teria um qrcode aqui, mas n tem")
+    }
+
     return(
         <div id='mainPedidos'>
             <div className='divPedido'>
@@ -169,8 +173,8 @@ function MeusPedidos() {
                                         <p onClick={()=>{setConfirmDelUm(true)}}>
                                             Apagar
                                         </p>
-                                    ) : pedidoUm.status === 2 ? (
-                                        <p> 
+                                    ) : pedidoUm.status === 3 ? (
+                                        <p className='pagamento' onClick={()=>{gerarQRCode()}}> 
                                             {/* api de pagamento */}
                                             <abbr title="Realize o pagamento para receber o pedido">Realizar Pagamento</abbr>
                                         </p>
@@ -261,20 +265,20 @@ function MeusPedidos() {
                             ) : (
                                 <div>
                                     {pedidoDois.status === 0 ? (
-                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelDois(true)}}>
                                             <span className="material-symbols-outlined">delete</span> Cancelar Pedido
                                         </p>
                                     ) : pedidoDois.status === 1 ? (
-                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelDois(true)}}>
                                             Apagar
                                         </p>
-                                    ) : pedidoDois.status === 2 ? (
-                                        <p> 
+                                    ) : pedidoDois.status === 3? (
+                                        <p className='pagamento' onClick={()=>{gerarQRCode()}}> 
                                             {/* api de pagamento */}
                                             <abbr title="Realize o pagamento para receber o pedido">Realizar Pagamento</abbr>
                                         </p>
                                     ) : (
-                                        <p onClick={()=>{setConfirmDelDois(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelDois(true)}}>
                                             Apagar
                                         </p>
                                     )} 

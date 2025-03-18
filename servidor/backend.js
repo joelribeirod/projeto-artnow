@@ -277,21 +277,39 @@ const Categorias = require("./tabelas/categorias")
             })
         })
 
-        app.post("/pedidos",verificarToken, upload.array("imagens", 2), (req,res)=>{
-            console.log(req.files)
-            const filePaths = req.files.map((file) => `http://localhost:8081/uploads/${file.filename}`)
+        app.post("/pedidos",verificarToken, upload.array("imagens", 2), async (req,res)=>{
+            let limiteDePedidos = false
 
-            Project.create({
-                categoria: req.body.categoria,
-                desc: req.body.desc,
-                ref1: filePaths[0],
-                ref2: filePaths[1],
-                clienteId: req.usuario.userId
-            }).then(
-                res.send({success: "Sucesso ao cadastrar o pedido"})
-            ).catch((err)=>{
-                res.send({erro: err})
+            await Project.findAll({
+                where: {'clienteId': req.usuario.userId}
+            }).then((pedidos)=>{
+                if(pedidos.length >= 2){
+                    limiteDePedidos = true
+                }
             })
+
+            console.log(limiteDePedidos)
+
+            if(limiteDePedidos){
+                res.send({erro: "Limite de projetos excedido"})
+            }else{
+                console.log(req.files)
+                const filePaths = req.files.map((file) => `http://localhost:8081/uploads/${file.filename}`)
+
+                Project.create({
+                    categoria: req.body.categoria,
+                    desc: req.body.desc,
+                    ref1: filePaths[0],
+                    ref2: filePaths[1],
+                    clienteId: req.usuario.userId
+                }).then(
+                    res.send({success: "Sucesso ao cadastrar o pedido"})
+                ).catch((err)=>{
+                    res.send({erro: err})
+                })
+            }
+
+            
         })
 
         app.delete("/pedidos/:id",verificarToken, async (req,res)=>{

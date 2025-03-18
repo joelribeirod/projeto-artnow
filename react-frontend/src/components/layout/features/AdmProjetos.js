@@ -7,6 +7,7 @@ function AdmProjetos() {
 
     const [pedidos, setPedidos] = useState('')
     const [categorias, setCategorias] = useState([])
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState(4)
 
     useEffect(()=>{
         let promise = fetch('http://localhost:8081/pedidos/admGetAll', {
@@ -53,12 +54,23 @@ function AdmProjetos() {
     return(
         <div id="mainAdmProjetosBg">
             <div id="filtro">
-                filtrando...
+                <select onChange={(e)=>(
+                    setCategoriaSelecionada(Number(e.target.value))
+                )}>
+                    <option value="4" key="4">Todos</option>
+                    <option value="0" key="0">Em andamento</option>
+                    <option value="3" key="3">Aguardando pagamento</option>
+                    <option value="1" key="1">Concluidos</option>
+                    <option value="2" key="2">Recusados</option>
+                </select>
             </div>
             <div id="mainAdmProjetos">
                 
-                {pedidos ? (
-                    pedidos.map(pedido => (
+                {pedidos ? (              
+                    pedidos.filter(
+                        // eslint-disable-next-line 
+                        (pedido)=> categoriaSelecionada === 4 || pedido.status === categoriaSelecionada
+                    ).map(pedido => (
                         <div className="pedido">
                             <a href={`admprojetos/projeto/${pedido.id}`} className="detalhes">
                                 <p className="pedidoDesc">{limitarTexto(pedido.desc, 50)}</p>
