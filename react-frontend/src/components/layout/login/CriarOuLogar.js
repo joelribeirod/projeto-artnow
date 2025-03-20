@@ -1,11 +1,12 @@
 import './CriarOuLogar.css'
+import { Link } from 'react-router-dom'
 
 function CriarOuLogar(){
     return(
         <div id="redirecionar">
             <p>Você deseja:</p>
-            <a href="/login/signup" id='criar'>Criar Conta?</a>
-            <a href="/login/signin" id='logar'>Logar Contar?</a>
+            <Link to="/login/signup" id='criar'>Criar Conta?</Link>
+            <Link to="/login/signin" id='logar'>Logar Contar?</Link>
         </div>
     )
 }

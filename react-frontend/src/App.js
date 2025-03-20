@@ -21,7 +21,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="projeto-artnow">
       <Routes>
         <Route path="/" element={<LandPage />}/>
         <Route path="/mainfeatures" element={<MainFeatures />}>

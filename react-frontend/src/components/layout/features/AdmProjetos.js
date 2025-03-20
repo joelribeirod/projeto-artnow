@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import './AdmProjetos.css'
 
@@ -72,7 +73,7 @@ function AdmProjetos() {
                         (pedido)=> categoriaSelecionada === 4 || pedido.status === categoriaSelecionada
                     ).map(pedido => (
                         <div className="pedido">
-                            <a href={`admprojetos/projeto/${pedido.id}`} className="detalhes">
+                            <Link to={`projeto/${pedido.id}`} className="detalhes">
                                 <p className="pedidoDesc">{limitarTexto(pedido.desc, 50)}</p>
 
                                 {pedido.status === 0 ? (
@@ -92,7 +93,7 @@ function AdmProjetos() {
                                 ).map((categoria)=>(
                                     <p className="pedidoCateg" key={categoria.nome}>{categoria.nome}</p>
                                 ))}
-                            </a>
+                            </Link>
                         </div>
                         
                     ))

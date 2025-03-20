@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 import './FormGet.css'
 
@@ -112,7 +112,8 @@ function FormGet(){
                     <button type="submit" onClick={resgatarUsuario}>Logar</button>
                 </form>
             </div>
-            <p>Não tem uma conta? <a href="/login/signup">Crie uma agora</a></p>
+            
+            <p>Não tem uma conta? <Link to="/login/signup">Crie uma agora</Link></p>
         </div>
     )
 }

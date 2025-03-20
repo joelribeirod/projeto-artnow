@@ -1,4 +1,4 @@
-import { useNavigate} from "react-router-dom";
+import { useNavigate, Link} from "react-router-dom";
 import { useEffect, useState } from 'react'
 import './SideNavBar.css'
 
@@ -57,14 +57,13 @@ function SideNavBar({isAdmin}){
         <div id='NavBar'>
             <span className={position ? "hamburguerAtivo material-symbols-outlined" : "hamburguerDesativo material-symbols-outlined"} id="menuHamburguer" onClick={mudarTamanho}>menu</span>
             <div id='mainNavBar' className={position ? 'desativo' : 'ativo'}>
-                
-                <a href="/mainfeatures">Editar perfil</a>
-                <a href="/mainfeatures/criarpedidos">Criar um pedido</a>
-                <a href="/mainfeatures/meuspedidos">Meus pedidos</a>
+                <Link to="/mainfeatures">Editar perfil</Link>
+                <Link to="/mainfeatures/criarpedidos">Criar um pedido</Link>
+                <Link to="/mainfeatures/meuspedidos">Meus pedidos</Link>
                 <hr/>
                 {isAdmin === 0 && <div id='admDiv'>
-                    <a href="/mainfeatures/admprojetos">Visualizar Projetos</a>
-                    <a href="/mainfeatures/criarcategorias">Nova Categoria</a>
+                    <Link to="/mainfeatures/admprojetos">Visualizar Projetos</Link>
+                    <Link to="/mainfeatures/criarcategorias">Nova Categoria</Link>
                     <hr/>
                 </div> }
                 <button id='deslogarBtn' onClick={()=>{

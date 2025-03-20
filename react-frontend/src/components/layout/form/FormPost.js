@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 import './FormPost.css'
 
@@ -133,7 +133,8 @@ function FormPost(){
                     <button type="submit" onClick={cadastrarUser}>Criar conta</button>
                 </form>
             </div>
-            <p>Já tem uma conta? <a href="/login/signin">Acesse-a agora</a></p>
+            
+            <p>Já tem uma conta? <Link to="/login/signin">Acesse-a agora</Link></p>
         </div>
     )
 }
