@@ -3,7 +3,7 @@ const app = express()
 const multer = require("multer")
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const path = require('path')
 const fs = require('fs')
 
