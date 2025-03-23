@@ -19,7 +19,7 @@ function CriarPedidos() {
 
 
     useEffect(()=>{
-        fetch('http://localhost:8081/categorias', {
+        fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -78,7 +78,7 @@ function CriarPedidos() {
         formData.append("categoria", categoriaSelecionada)
         formData.append("desc", desc)
 
-        let promise = fetch("http://localhost:8081/pedidos", {
+        let promise = fetch("https://projeto-artnow.onrender.com/pedidos", {
             method: "POST",
             headers:{
                 'Authorization': `Bearer ${token}`

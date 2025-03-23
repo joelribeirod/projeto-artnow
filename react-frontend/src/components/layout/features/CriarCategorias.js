@@ -14,7 +14,7 @@ function CriarCategorias() {
     const [categoriaEditandoId, setCategoriaEditandoId] = useState()
     
     useEffect(()=>{
-        fetch('http://localhost:8081/categorias', {
+        fetch('https://projeto-artnow.onrender.com/categorias', {
             method: "GET",
             headers: {
                 'Content-Type' : 'application/json',
@@ -35,7 +35,7 @@ function CriarCategorias() {
             categoriaNome: categoriaNome
         }
 
-        let promise = fetch('http://localhost:8081/categorias', {
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: "POST",
             headers: {
                 'Content-Type' : 'application/json',
@@ -71,7 +71,7 @@ function CriarCategorias() {
             categoriaAtualizada: novaCategoriaEdit
         }
 
-        let promise = fetch(`http://localhost:8081/categorias/${id}`, {
+        let promise = fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type' : 'application/json',
@@ -96,7 +96,7 @@ function CriarCategorias() {
     }
 
     function deletarCategoria(id) {
-        let promise = fetch(`http://localhost:8081/categorias/${id}`, {
+        let promise = fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json',

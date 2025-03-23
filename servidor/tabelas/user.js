@@ -22,7 +22,7 @@ const Login = db.sequelize.define('usuarios', {
     timestamps : false
 })
 
-// Login.sync({force: true})
+Login.sync()
 
 module.exports = Login
 

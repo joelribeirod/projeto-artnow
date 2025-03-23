@@ -17,7 +17,7 @@ function MeusPedidos() {
     const [confirmDelDois, setConfirmDelDois] = useState(false)
 
     useEffect(()=>{
-        let promise = fetch('http://localhost:8081/pedidos', {
+        let promise = fetch('https://projeto-artnow.onrender.com/pedidos', {
             method: "GET",
             headers: {
                 'Content-Type':'application/json',
@@ -36,7 +36,7 @@ function MeusPedidos() {
     }, [token])
 
     useEffect(()=>{
-        fetch('http://localhost:8081/categorias', {
+        fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -53,7 +53,7 @@ function MeusPedidos() {
 
     function deletarProjeto(project) {
         if(project === 'um'){
-            let promise = fetch(`http://localhost:8081/pedidos/${pedidoUm.id}`,{
+            let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoUm.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',
@@ -72,7 +72,7 @@ function MeusPedidos() {
             })
 
         }else if(project === 'dois'){
-            let promise = fetch(`http://localhost:8081/pedidos/${pedidoDois.id}`,{
+            let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoDois.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',

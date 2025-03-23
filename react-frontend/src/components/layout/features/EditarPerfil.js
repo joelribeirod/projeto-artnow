@@ -20,7 +20,7 @@ function EditarPerfil() {
     const [senhaDel, setSenhaDel] = useState('')
 
     useEffect(()=>{
-        fetch('http://localhost:8081/login/user', {
+        fetch('https://projeto-artnow.onrender.com/login/user', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -84,7 +84,7 @@ function EditarPerfil() {
             return null
         }
         
-        let promise = fetch(`http://localhost:8081/login/edituser/${user.id}`, {
+        let promise = fetch(`https://projeto-artnow.onrender.com/login/edituser/${user.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type':'application/json',
@@ -106,7 +106,7 @@ function EditarPerfil() {
             senha: senhaDel
         }
 
-        let promise = fetch(`http://localhost:8081/login/deleteuser/${user.id}`, {
+        let promise = fetch(`https://projeto-artnow.onrender.com/login/deleteuser/${user.id}`, {
             method: "POST",
             headers: {
                 'Content-Type':'application/json',

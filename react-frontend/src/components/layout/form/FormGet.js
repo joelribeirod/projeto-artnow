@@ -50,7 +50,7 @@ function FormGet(){
             senha: senha
         }
 
-        await fetch('http://localhost:8081/login/signin', {
+        await fetch('https://projeto-artnow.onrender.com/login/signin', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuario)

@@ -23,6 +23,8 @@ const Project = db.sequelize.define('projetos', {
     }
 })
 
+Project.sync()
+
 module.exports = Project
 //status
     //0 => em andamento - amarelo

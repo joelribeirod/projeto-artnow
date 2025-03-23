@@ -57,7 +57,7 @@ function FormPost(){
             senha: senha
         }
 
-        await fetch('http://localhost:8081/login/signup', {
+        await fetch('https://projeto-artnow.onrender.com/login/signup', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuario)
