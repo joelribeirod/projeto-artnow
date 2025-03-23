@@ -23,7 +23,7 @@ const Project = db.sequelize.define('projetos', {
     }
 })
 
-Project.sync()
+// Project.sync()
 
 module.exports = Project
 //status
