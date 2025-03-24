@@ -11,6 +11,7 @@ function AdmProjetos() {
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(4)
 
     useEffect(()=>{
+        
         let promise = fetch('https://projeto-artnow.onrender.com/pedidos/admGetAll', {
             method: "GET",
             headers: {

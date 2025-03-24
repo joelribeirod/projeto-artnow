@@ -33,6 +33,7 @@ function MainFeatures(){
             <div id='renderizarComponentesFeatures'>
                 <Outlet/>
             </div>
+            {/*  */}
         </div>
     )
 }
