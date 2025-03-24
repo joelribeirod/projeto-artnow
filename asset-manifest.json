@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/projeto-artnow/static/css/main.a08b20dd.css",
-    "main.js": "/projeto-artnow/static/js/main.1a7d0e2b.js",
+    "main.js": "/projeto-artnow/static/js/main.80b2f0f2.js",
     "static/js/453.dc73245c.chunk.js": "/projeto-artnow/static/js/453.dc73245c.chunk.js",
     "index.html": "/projeto-artnow/index.html",
     "static/media/loading.svg": "/projeto-artnow/static/media/loading.5ff8599871e56a8a672f0861a01ef3bc.svg",
     "main.a08b20dd.css.map": "/projeto-artnow/static/css/main.a08b20dd.css.map",
-    "main.1a7d0e2b.js.map": "/projeto-artnow/static/js/main.1a7d0e2b.js.map",
+    "main.80b2f0f2.js.map": "/projeto-artnow/static/js/main.80b2f0f2.js.map",
     "453.dc73245c.chunk.js.map": "/projeto-artnow/static/js/453.dc73245c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a08b20dd.css",
-    "static/js/main.1a7d0e2b.js"
+    "static/js/main.80b2f0f2.js"
   ]
 }
