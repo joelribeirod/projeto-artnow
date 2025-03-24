@@ -294,7 +294,7 @@ const Categorias = require("./tabelas/categorias")
                 res.send({erro: "Limite de projetos excedido"})
             }else{
                 console.log(req.files)
-                const filePaths = req.files.map((file) => `http://localhost:8081/uploads/${file.filename}`)
+                const filePaths = req.files.map((file) => `https://projeto-artnow.onrender.com/uploads/${file.filename}`)
 
                 Project.create({
                     categoria: req.body.categoria,
@@ -416,8 +416,10 @@ const Categorias = require("./tabelas/categorias")
     //
 //
 
+const PORT = process.env.PORT || 8081
+
 app.use("/uploads", express.static("uploads"));
 
-app.listen(8081, ()=> {
+app.listen(PORT, ()=> {
     console.log("Servidor rodando...")
 })
