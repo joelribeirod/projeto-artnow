@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from "react-router-dom"
 
+import Loading from '../../loading/Loading'
+
 import './FormGet.css'
 
 function FormGet(){
@@ -9,6 +11,8 @@ function FormGet(){
 
     const [senha, setSenha] = useState()
     const [erroSenha, setErroSenha] = useState()
+
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -50,13 +54,17 @@ function FormGet(){
             senha: senha
         }
 
-        await fetch('https://projeto-artnow.onrender.com/login/signin', {
+        setLoading(true)
+
+        let promise = await fetch('https://projeto-artnow.onrender.com/login/signin', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuario)
         }).then((resp) => 
             resp.json()
-        ).then((data)=>{
+        )
+
+        Promise.resolve(promise).then((data)=>{
             if(data.erro){
                 inputNome.classList.add('erro')
                 inputSenha.classList.add('erro')
@@ -66,12 +74,15 @@ function FormGet(){
             }
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
+
+
     }
 
 
     return(
         <div id='mainFormGetBG'>
+            {loading && <Loading />}
             <h3>Logar conta</h3>
             <div id='mainFormGet'>
                 <form method="get" id='formGet'>

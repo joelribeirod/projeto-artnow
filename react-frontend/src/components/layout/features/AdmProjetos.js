@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import './AdmProjetos.css'
+import Loading from "../../loading/Loading";
 
 function AdmProjetos() {
     const token = localStorage.getItem('token')
@@ -10,8 +11,10 @@ function AdmProjetos() {
     const [categorias, setCategorias] = useState([])
     const [categoriaSelecionada, setCategoriaSelecionada] = useState(4)
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(()=>{
-        
+        setLoading(true)
         let promise = fetch('https://projeto-artnow.onrender.com/pedidos/admGetAll', {
             method: "GET",
             headers: {
@@ -29,12 +32,13 @@ function AdmProjetos() {
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log('Requisição finalizada')
+            setLoading(false)
         })
     },[token])
 
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/categorias', {
+        setLoading(true)
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -42,11 +46,14 @@ function AdmProjetos() {
             }
         }).then(
             (resp)=>resp.json()
-        ).then((categorias) =>{
+        )
+
+        Promise.resolve(promise).then((categorias) =>{
             setCategorias(categorias)
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
+
     },[token])
 
     function limitarTexto(texto, limite) {
@@ -55,6 +62,7 @@ function AdmProjetos() {
 
     return(
         <div id="mainAdmProjetosBg">
+            {loading && <Loading/>}
             <div id="filtro">
                 <select onChange={(e)=>(
                     setCategoriaSelecionada(Number(e.target.value))

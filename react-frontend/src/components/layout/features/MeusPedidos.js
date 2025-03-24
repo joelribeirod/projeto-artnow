@@ -2,6 +2,7 @@ import './MeusPedidos.css'
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import Loading from '../../loading/Loading';
 
 function MeusPedidos() {
     const imgAdicionar = require("../../../imgs/mais.png")
@@ -12,11 +13,16 @@ function MeusPedidos() {
 
     const [pedidoUm, setPedidoUm] = useState()
     const [pedidoDois, setPedidoDois] = useState()
+
     const [categorias, setCategorias] = useState([])
+
     const [confirmDelUm, setConfirmDelUm] = useState(false)
     const [confirmDelDois, setConfirmDelDois] = useState(false)
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(()=>{
+        setLoading(true)
         let promise = fetch('https://projeto-artnow.onrender.com/pedidos', {
             method: "GET",
             headers: {
@@ -31,12 +37,12 @@ function MeusPedidos() {
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log("Fetch realizado")
+            setLoading(false)
         })
     }, [token])
 
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -44,16 +50,19 @@ function MeusPedidos() {
             }
         }).then(
             (resp)=>resp.json()
-        ).then((categorias) =>{
+        )
+
+        Promise.resolve(promise).then((categorias) =>{
             setCategorias(categorias)
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
     },[token])
 
-    function deletarProjeto(project) {
+    async function deletarProjeto(project) {
+        setLoading(true)
         if(project === 'um'){
-            let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoUm.id}`,{
+            let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoUm.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',
@@ -68,11 +77,11 @@ function MeusPedidos() {
             ).catch((err)=>{
                 console.log("Erro ao realizar a requisição: " + err)
             }).finally(()=>{
-                console.log('Requisição iniciada')
+                setLoading(false)
             })
 
         }else if(project === 'dois'){
-            let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoDois.id}`,{
+            let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoDois.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',
@@ -87,7 +96,7 @@ function MeusPedidos() {
             ).catch((err)=>{
                 console.log("Erro ao realizar a requisição: " + err)
             }).finally(()=>{
-                console.log('Requisição finalizada')
+                setLoading(false)
             })
         }
     }
@@ -98,6 +107,7 @@ function MeusPedidos() {
 
     return(
         <div id='mainPedidos'>
+            {loading && <Loading/>}
             <div className='divPedido'>
                 {pedidoUm ? (
                     <div className='mainDivPedido'>
@@ -166,11 +176,11 @@ function MeusPedidos() {
                             ) : (
                                 <div>
                                     {pedidoUm.status === 0 ? (
-                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelUm(true)}}>
                                             <span className="material-symbols-outlined">delete</span> Cancelar Pedido
                                         </p>
                                     ) : pedidoUm.status === 1 ? (
-                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelUm(true)}}>
                                             Apagar
                                         </p>
                                     ) : pedidoUm.status === 3 ? (
@@ -179,7 +189,7 @@ function MeusPedidos() {
                                             <abbr title="Realize o pagamento para receber o pedido">Realizar Pagamento</abbr>
                                         </p>
                                     ) : (
-                                        <p onClick={()=>{setConfirmDelUm(true)}}>
+                                        <p className='delPedido' onClick={()=>{setConfirmDelUm(true)}}>
                                             Apagar
                                         </p>
                                     )} 
@@ -259,7 +269,7 @@ function MeusPedidos() {
                         </div>
                         <div className='pedidosBtns'> 
                             {confirmDelDois ? (
-                                <p id='delP2' onClick={()=>{deletarProjeto('dois')}}>
+                                <p  id='delP2' onClick={()=>{deletarProjeto('dois')}}>
                                     Deseja mesmo cancelar o pedido?
                                 </p>
                             ) : (

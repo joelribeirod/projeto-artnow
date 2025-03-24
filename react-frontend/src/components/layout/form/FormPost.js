@@ -2,6 +2,7 @@ import {useState} from 'react'
 import { useNavigate, Link } from "react-router-dom"
 
 import './FormPost.css'
+import Loading from '../../loading/Loading'
 
 function FormPost(){
     const [nome, setNome] = useState()
@@ -12,6 +13,8 @@ function FormPost(){
 
     const [email, setEmail] = useState()
     const [erroEmail, setErroEmail] = useState()
+
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -57,13 +60,17 @@ function FormPost(){
             senha: senha
         }
 
-        await fetch('https://projeto-artnow.onrender.com/login/signup', {
+        setLoading(true)
+
+        let promise = await fetch('https://projeto-artnow.onrender.com/login/signup', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuario)
         }).then((resp) => 
             resp.json()
-        ).then((data)=>{
+        )
+
+        Promise.resolve(promise).then((data)=>{
             if(data.success){
                 navigate('/login/signin')
             }else if(data.error){
@@ -80,11 +87,12 @@ function FormPost(){
             }
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
     }
 
     return(
         <div id="mainFormPostBG">
+            {loading && <Loading/>}
             <h3>Criar conta</h3>
             <div id="mainFormPost">
                 <form method="post" id="formPost">

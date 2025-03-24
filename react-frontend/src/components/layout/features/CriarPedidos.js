@@ -2,24 +2,29 @@ import './CriarPedidos.css'
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import Loading from '../../loading/Loading';
 
 function CriarPedidos() {
     const navigate = useNavigate()
     const token = localStorage.getItem('token')
 
     const [categorias, setCategorias] = useState([])
-
     const [categoriaSelecionada, setCategoriaSelecionada] = useState()
+
     const [referenciaUm, setReferenciaUm] = useState(null)
     const [referenciaDois, setReferenciaDois] = useState(null)
+
     const [tam, setTam] = useState(0)
     const [erroTam, setErroTam] = useState(false)
 
     const [desc, setDesc] = useState('')
 
+    const [loading, setLoading] = useState(false)
+
 
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/categorias', {
+        setLoading(true)
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -27,11 +32,13 @@ function CriarPedidos() {
             }
         }).then(
             (resp)=>resp.json()
-        ).then((categorias) =>{
+        )
+
+        Promise.resolve(promise).then((categorias) =>{
             setCategorias(categorias)
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
     },[token])
 
     useEffect(()=>{
@@ -51,7 +58,7 @@ function CriarPedidos() {
         }
     }
 
-    function enviarPedido() {
+    async function enviarPedido() {
         if(!desc || desc === null || desc === undefined){
             window.alert('Escreva a descrição do projeto')
             return null
@@ -78,7 +85,9 @@ function CriarPedidos() {
         formData.append("categoria", categoriaSelecionada)
         formData.append("desc", desc)
 
-        let promise = fetch("https://projeto-artnow.onrender.com/pedidos", {
+        setLoading(true)
+
+        let promise = await fetch("https://projeto-artnow.onrender.com/pedidos", {
             method: "POST",
             headers:{
                 'Authorization': `Bearer ${token}`
@@ -95,12 +104,13 @@ function CriarPedidos() {
         }).catch((err)=>{
             console.log('Erro ao cadastrar pedido: ' + err)
         }).finally(()=>{
-            console.log("Requisição realizada com sucesso")
+            setLoading(false)
         })
     }
 
     return (
         <div id="criarPedidosBG">
+            {loading && <Loading/>}
             <div id="criarPedidos">
                 <h1>Crie seu pedido</h1>
                 <div id="criarPedidoForm">
@@ -120,7 +130,7 @@ function CriarPedidos() {
                             setCategoriaSelecionada(e.target.value)
                         )}>
                             <option value="">Selecione uma categoria</option>
-                            {categorias.length > 1 ? (
+                            {categorias.length >= 1 ? (
                                 categorias.map((categoria)=>(
                                     <option value={categoria.id} key={categoria.id}>{categoria.nome}</option>
                                 ))

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import './CriarCategorias.css'
+import Loading from "../../loading/Loading";
 
 function CriarCategorias() {
     const token = localStorage.getItem('token')
@@ -12,9 +13,12 @@ function CriarCategorias() {
     const [categorias, setCategorias] = useState([])
 
     const [categoriaEditandoId, setCategoriaEditandoId] = useState()
+
+    const [loading, setLoading] = useState(false)
     
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/categorias', {
+        setLoading(true)
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: "GET",
             headers: {
                 'Content-Type' : 'application/json',
@@ -22,20 +26,23 @@ function CriarCategorias() {
             }
         }).then(
             (resp) => resp.json()
-        ).then((data)=>{
+        )
+
+        Promise.resolve(promise).then((data)=>{
             console.log(data)
             setCategorias(data)
         }).catch((err) => {
             console.log(err)
-        })
-    }, [])
+        }).finally(()=> setLoading(false))
+    }, [token])
 
-    function criarCategoria() {
+    async function criarCategoria() {
+        setLoading(true)
         const categoria = {
             categoriaNome: categoriaNome
         }
 
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = await fetch('https://projeto-artnow.onrender.com/categorias', {
             method: "POST",
             headers: {
                 'Content-Type' : 'application/json',
@@ -44,16 +51,14 @@ function CriarCategorias() {
             body: JSON.stringify(categoria)
         }).then(
             (resp) => resp.json()
-        ).catch((err) => {
-            console.log(err)
-        })
+        )
 
         Promise.resolve(promise).then(()=>{
             window.location.reload()
         }).catch((err) => {
             console.log(err)
         }).finally(() => {
-            console.log("deu certo")
+            setLoading(false)
         })
     }
 
@@ -64,14 +69,14 @@ function CriarCategorias() {
         setCategoriaEditandoId(id)
     }
 
-    function salvarEdicao(id) {
-        console.log(id, novaCategoriaEdit)
+    async function salvarEdicao(id) {
+        setLoading(true)
 
         const categoriaAtualizada = {
             categoriaAtualizada: novaCategoriaEdit
         }
 
-        let promise = fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
+        let promise = await fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type' : 'application/json',
@@ -91,12 +96,13 @@ function CriarCategorias() {
         }).catch((err) => {
             console.log('algo deu errado') 
         }).finally(() => {
-            console.log('requisição realiza')
+            setLoading(false)
         })
     }
 
-    function deletarCategoria(id) {
-        let promise = fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
+    async function deletarCategoria(id) {
+        setLoading(true)
+        let promise = await fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json',
@@ -113,7 +119,7 @@ function CriarCategorias() {
         }).catch((err) => {
             console.log(err)
         }).finally(() => {
-            console.log('deu certo!')
+            setLoading(false)
         })
     }
 
@@ -125,6 +131,7 @@ function CriarCategorias() {
 
     return (
         <div id="mainCategoria">
+            {loading && <Loading/>}
             <div id="atualizarDadoBG" style={{display: 'none'}}>
                 <div id="atualizarDado">
                     <h1>Editar Categoria:</h1>

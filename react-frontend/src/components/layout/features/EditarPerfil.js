@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import './EditarPerfil.css'
+import Loading from "../../loading/Loading";
 
 function EditarPerfil() {
     const token = localStorage.getItem('token')
@@ -19,18 +20,24 @@ function EditarPerfil() {
     const [inputDel, setInputDel] = useState(false)
     const [senhaDel, setSenhaDel] = useState('')
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/login/user', {
+        setLoading(true)
+
+        let promise = fetch('https://projeto-artnow.onrender.com/login/user', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
                 'Authorization': `Bearer ${token}`
             }
-        }).then((resp)=>resp.json()).then((usuario) =>{
+        }).then((resp)=>resp.json())
+
+        Promise.resolve(promise).then((usuario) =>{
             setUser(usuario)
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
     },[token])
 
     function edit(){
@@ -52,7 +59,7 @@ function EditarPerfil() {
         setNewSenha('dezdigitos')
     }
 
-    function salvarEdit() {
+    async function salvarEdit() {
         const dados = {}
 
         if(newSenha !== 'dezdigitos'){
@@ -83,8 +90,10 @@ function EditarPerfil() {
             window.alert('nenhum dado editado')
             return null
         }
+
+        setLoading(true)
         
-        let promise = fetch(`https://projeto-artnow.onrender.com/login/edituser/${user.id}`, {
+        let promise = await fetch(`https://projeto-artnow.onrender.com/login/edituser/${user.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type':'application/json',
@@ -97,16 +106,18 @@ function EditarPerfil() {
             window.location.reload()
         ).catch((err)=>{
             console.log(err)
-        }).finally(()=>{console.log('requisição finalizada')})
+        }).finally(()=> setLoading(false))
 
     }
 
-    function deletarConta() {
+    async function deletarConta() {
         const senha = {
             senha: senhaDel
         }
 
-        let promise = fetch(`https://projeto-artnow.onrender.com/login/deleteuser/${user.id}`, {
+        setLoading(true)
+
+        let promise = await fetch(`https://projeto-artnow.onrender.com/login/deleteuser/${user.id}`, {
             method: "POST",
             headers: {
                 'Content-Type':'application/json',
@@ -126,12 +137,13 @@ function EditarPerfil() {
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log("Requisição finalizada")
+            setLoading(false)
         })
     }
 
     return (
         <div id="editPerfil">
+            {loading && <Loading/>}
             <h1>Seu perfil:</h1>
             <div id="editPerfilForm">
                 <label htmlFor="inome">Nome: </label>

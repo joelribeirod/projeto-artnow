@@ -1,0 +1,16 @@
+#loadingBG{
+    background-color: rgba(0, 0, 0, 0.164);
+    width: 600px;
+    max-width: 80%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 7;
+}
+
+#loading{
+    opacity: 1;
+    border-radius: 50%;
+}

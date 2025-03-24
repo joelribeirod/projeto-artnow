@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom" 
 
 import './Projeto.css'
+import Loading from "../../loading/Loading";
 
 function Projeto() {
     const {id} = useParams()
@@ -9,8 +10,11 @@ function Projeto() {
 
     const [pedido, setPedido] = useState()
     const [userData, setUserData] = useState()
+
     const [loading, setLoading] = useState(false)
+
     const [categorias, setCategorias] = useState([])
+
     const [confirmDel, setConfirmDel] = useState(false)
 
     const navigate = useNavigate()
@@ -36,13 +40,14 @@ function Projeto() {
             console.log(err)
         }).finally(()=>{
             setLoading(false)
-            console.log('Requisição finalizada')
         })
 
     }, [id, token])
 
     useEffect(()=>{
         if (!pedido || !pedido.clienteId) return;
+
+        setLoading(true)
 
         let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/admGetUser/${pedido.clienteId}`, {
             method: "GET",
@@ -61,12 +66,13 @@ function Projeto() {
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log('Requisição finalizada')
+            setLoading(false)
         })
     },[token, pedido])
 
     useEffect(()=>{
-        fetch('https://projeto-artnow.onrender.com/categorias', {
+        setLoading(true)
+        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -74,14 +80,16 @@ function Projeto() {
             }
         }).then(
             (resp)=>resp.json()
-        ).then((categorias) =>{
+        )
+
+        Promise.resolve(promise).then((categorias) =>{
             setCategorias(categorias)
         }).catch((err) => {
             console.log(err)
-        })
+        }).finally(()=> setLoading(false))
     },[token])
 
-    function alterarStatus(e) {
+    async function alterarStatus(e) {
         const alteracao = {}
         if(e === 'mudarParaZero'){
             alteracao['status'] = 0
@@ -93,9 +101,9 @@ function Projeto() {
             alteracao['status'] = 3
         }
 
-        console.log(alteracao)
+        setLoading(true)
         
-        let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/admAlterarStatus/${pedido.id}`, {
+        let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/admAlterarStatus/${pedido.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type':'application/json',
@@ -109,12 +117,14 @@ function Projeto() {
         }).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log("Requisição finalizada")
+            setLoading(false)
         })
     }
 
-    function deletarProjeto() {
-        let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/${pedido.id}`, {
+    async function deletarProjeto() {
+        setLoading(true)
+
+        let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedido.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type':'application/json',
@@ -127,12 +137,13 @@ function Projeto() {
         ).catch((err)=>{
             console.log(err)
         }).finally(()=>{
-            console.log('Requisição finalizada')
+            setLoading(false)
         })
     }
 
     return(
         <div id="mainPedidoAdmBg">
+            {loading && <Loading/>}
             <div id="mainPedidoAdm">
                 {pedido ? (
                     <div id="mainPedido">
@@ -233,8 +244,6 @@ function Projeto() {
                             </div>
                         )}                       
                     </div>
-                ): loading ? (
-                    <p>Carregando dados...</p>
                 ):(
                     <p>Nenhum pedido com este id!</p>
                 )}
