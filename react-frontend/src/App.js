@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import './App.css';
 
 //components
@@ -21,7 +21,7 @@ import './App.css';
 
 function App() {
   return (
-    <Router basename="projeto-artnow">
+    
       <Routes>
         <Route path="/" element={<LandPage />}/>
         <Route path="/mainfeatures" element={<MainFeatures />}>
@@ -40,7 +40,7 @@ function App() {
         </Route>
         
       </Routes>
-    </Router>
+    
   )
 }
 
