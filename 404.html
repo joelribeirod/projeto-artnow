@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
-        // Redireciona para a rota correta sem quebrar no GitHub Pages
         var path = window.location.pathname;
-        var newPath = "/projeto-artnow" + path;
-        window.location.replace(newPath);
+        var repoName = "/projeto-artnow";
+
+        // Verifica se já estamos na URL correta para evitar loops
+        if (!path.startsWith(repoName)) {
+            window.location.replace(repoName + path);
+        }
     </script>
 </head>
 <body>
