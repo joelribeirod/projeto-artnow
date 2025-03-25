@@ -14,6 +14,8 @@ function FormPost(){
     const [email, setEmail] = useState()
     const [erroEmail, setErroEmail] = useState()
 
+    const [tipoInput, setTipoInput] = useState('password')
+
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
@@ -111,30 +113,30 @@ function FormPost(){
                         }}/>
                         {erroEmail && <p className='erroDigE'>{erroEmail}</p>}
                     <label htmlFor="senha">Senha:</label>
-                        <input type="password" id='isenha' required onChange={(e) => {
+                        <input type={tipoInput} id='isenha' required onChange={(e) => {
                             setSenha(e.target.value)
                             setErroSenha('')
                             e.target.classList.remove('erro')
+
                         }}
                         />
                         {erroSenha && <p className='erroDigS'>{erroSenha}</p>}
                     <div id="visualizarSenhaPOST" onClick={()=>{
-                        const desver = document.getElementById('desver')
+                        const alterarVisibilidade = document.getElementById('alterarVisibilidade')
                         const ver = document.getElementById('ver')
-                        const inputSenha = document.getElementById('isenha')
 
-                        if(desver.textContent === 'visibility'){
-                            desver.textContent = 'visibility_off'
+                        if(alterarVisibilidade.textContent === 'visibility'){
+                            alterarVisibilidade.textContent = 'visibility_off'
                             ver.textContent = 'Esconder senha'
-                            inputSenha.type = 'text'
-                        }else if(desver.textContent === 'visibility_off'){
-                            desver.textContent = 'visibility'
+                            setTipoInput('text')
+                        }else if(alterarVisibilidade.textContent === 'visibility_off'){
+                            alterarVisibilidade.textContent = 'visibility'
                             ver.textContent = 'Ver senha'
-                            inputSenha.type = 'password'
-                        } //resolver bug: quando clicar em ver senha e tenta continuar digitando a senha, somente o input acaba voltando para o type password, sendo que deveria continuar sendo text
+                            setTipoInput('password')
+                        }
                     }}>
                         <div id="corrigirError">
-                            <span className="material-symbols-outlined" id="desver">visibility</span>
+                            <span className="material-symbols-outlined" id="alterarVisibilidade">visibility</span>
                             <p id="ver">Ver senha</p>
                         </div>
                     </div>

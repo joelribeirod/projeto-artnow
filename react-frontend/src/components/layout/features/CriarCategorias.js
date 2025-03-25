@@ -94,7 +94,7 @@ function CriarCategorias() {
                 window.alert('Ops! Aconteceu algum erro!')
             }  
         }).catch((err) => {
-            console.log('algo deu errado') 
+            console.log('algo deu errado: ' + err) 
         }).finally(() => {
             setLoading(false)
         })

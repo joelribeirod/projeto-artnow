@@ -12,6 +12,8 @@ function FormGet(){
     const [senha, setSenha] = useState()
     const [erroSenha, setErroSenha] = useState()
 
+    const [tipoInput, setTipoInput] = useState('password')
+
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
@@ -94,7 +96,7 @@ function FormGet(){
                         }}/>
                         {erroNome && <p className='erroN'>{erroNome}</p>}
                     <label htmlFor="senha">Senha:</label>
-                        <input type="password" id='isenha' required onChange={(e)=>{
+                        <input type={tipoInput} id='isenha' required onChange={(e)=>{
                             setSenha(e.target.value)
                             setErroSenha('')
                             e.target.classList.remove('erro')
@@ -102,21 +104,20 @@ function FormGet(){
                         {erroSenha && <p className='erroS'>{erroSenha}</p>}
                     <div id="visualizarSenhaGET">
                         <div id="corrigirProblema" onClick={()=>{
-                            const desver = document.getElementById('desver')
+                            const alterarVisibilidade = document.getElementById('alterarVisibilidade')
                             const ver = document.getElementById('ver')
-                            const inputSenha = document.getElementById('isenha')
 
-                            if(desver.textContent === 'visibility'){
-                                desver.textContent = 'visibility_off'
+                            if(alterarVisibilidade.textContent === 'visibility'){
+                                alterarVisibilidade.textContent = 'visibility_off'
                                 ver.textContent = 'Esconder senha'
-                                inputSenha.type = 'text'
-                            }else if(desver.textContent === 'visibility_off'){
-                                desver.textContent = 'visibility'
+                                setTipoInput('text') 
+                            }else if(alterarVisibilidade.textContent === 'visibility_off'){
+                                alterarVisibilidade.textContent = 'visibility'
                                 ver.textContent = 'Ver senha'
-                                inputSenha.type = 'password'
+                                setTipoInput('password') 
                             }
                         }}>
-                            <span className="material-symbols-outlined" id="desver">visibility</span>
+                            <span className="material-symbols-outlined" id="alterarVisibilidade">visibility</span>
                             <p id="ver">Ver senha</p>
                         </div>
                     </div>
