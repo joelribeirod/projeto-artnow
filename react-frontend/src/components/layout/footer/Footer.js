@@ -3,7 +3,7 @@ import './Footer.css'
 function Footer(){
     return(
         <footer>
-            <p>Criador por Joel Ribeiro</p>
+            <p>Criado por Joel Ribeiro</p>
         </footer>
     )
 }

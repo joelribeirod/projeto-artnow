@@ -7,8 +7,6 @@ import './App.css';
   import MainLogin from './components/pages/mainlogin/MainLogin'
     import SignIn from './components/layout/login/SignIn'
     import SignUp from './components/layout/login/SignUp'
-    import CriarOuLogar from "./components/layout/login/CriarOuLogar";
-
   import MainFeatures from './components/pages/mainFeatures/MainFeatures'
     import AdmProjetos from "./components/layout/features/AdmProjetos";
     import CriarCategorias from "./components/layout/features/CriarCategorias";
@@ -34,7 +32,6 @@ function App() {
         </Route>
 
         <Route path="/login" element={<MainLogin />} >
-          <Route index element = {<CriarOuLogar/>}/>
           <Route path="signin" element={<SignIn />}/>
           <Route path="signup" element={<SignUp />}/>
         </Route>

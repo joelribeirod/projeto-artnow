@@ -7,5 +7,5 @@ footer{
     background-color: rgb(30, 30, 66);
     padding: 8px 6px;
     color: white;
-    
+    border-top: 1px solid black;
 }

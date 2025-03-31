@@ -1,13 +1,16 @@
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link, useLocation} from "react-router-dom";
 import { useEffect, useState } from 'react'
 import './SideNavBar.css'
 
 function SideNavBar({isAdmin}){
+    const location = useLocation().pathname
+
     const navigate = useNavigate()
 
     const [position, setPosition] = useState(false)
     const [positionBg, setPositionBg]= useState(false)
     const [tamanho, setTamanho] = useState(window.innerWidth)
+    const [rota, setRota] = useState(0)
 
     function mudarTamanho() {
         if(!position){
@@ -18,6 +21,29 @@ function SideNavBar({isAdmin}){
             setPosition(false)
         }
     }
+
+    useEffect(()=>{
+        switch (location) {
+            case "/mainfeatures":
+                setRota(0)
+                break;
+            case "/mainfeatures/criarpedidos":
+                setRota(1)
+                break;       
+            case "/mainfeatures/meuspedidos":
+                setRota(2)
+                break;     
+            case "/mainfeatures/admprojetos":
+                setRota(3)
+                break;       
+            case "/mainfeatures/criarcategorias":
+                setRota(4)
+                break;    
+            default:
+                setRota(3)
+                break;
+        }
+    }, [location, rota])
 
     useEffect(() => {
         const width = window.innerWidth
@@ -57,18 +83,20 @@ function SideNavBar({isAdmin}){
         <div id='NavBar'>
             <span className={position ? "hamburguerAtivo material-symbols-outlined" : "hamburguerDesativo material-symbols-outlined"} id="menuHamburguer" onClick={mudarTamanho}>menu</span>
             <div id='mainNavBar' className={position ? 'desativo' : 'ativo'}>
-                <Link to="/mainfeatures">Editar perfil</Link>
-                <Link to="/mainfeatures/criarpedidos">Criar um pedido</Link>
-                <Link to="/mainfeatures/meuspedidos">Meus pedidos</Link>
-                <hr/>
+                <Link to="/mainfeatures" className={rota === 0 && "rotaAtiva"}>Editar perfil</Link>
+                <Link to="/mainfeatures/criarpedidos" className={rota === 1 && "rotaAtiva"}>Criar um pedido</Link>
+                <Link to="/mainfeatures/meuspedidos" className={rota === 2 && "rotaAtiva"}>Meus pedidos</Link>
+                <hr className="linha"/>
                 {isAdmin === 0 && <div id='admDiv'>
-                    <Link to="/mainfeatures/admprojetos">Visualizar Projetos</Link>
-                    <Link to="/mainfeatures/criarcategorias">Nova Categoria</Link>
+                    <Link to="/mainfeatures/admprojetos" className={rota === 3 && "rotaAtiva"}>Visualizar Projetos</Link>
+                    <Link to="/mainfeatures/criarcategorias" className={rota === 4 && "rotaAtiva"}>Nova Categoria</Link>
                     <hr/>
                 </div> }
-                <button id='deslogarBtn' onClick={()=>{
-                    deslogar()
-                }}>Deslogar</button>
+                <button id='deslogarBtn' onClick={()=>{deslogar()}}>
+                    <span className="material-symbols-outlined">
+                        logout
+                    </span>
+                </button>
             </div>
             <div id='mainNavBarBG' className={positionBg ? 'ativarBg' : 'desativarBg'}>
 

@@ -15,7 +15,6 @@ function MainLogin(){
     
     return(
         <div id="main">
-            <h2 id="info">Sistema de login</h2>
             <div id="renderizarComponentes">
                 <Outlet/>
             </div>

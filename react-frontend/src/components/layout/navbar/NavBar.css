@@ -5,6 +5,7 @@
     height: 40px;
     background-color: rgb(30, 30, 66);
     padding: 8px 6px;
+    border-top: 1px solid black;
 }
 
 #navbar h1{

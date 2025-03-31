@@ -12,6 +12,7 @@
     border-radius: 8px;
     padding: 10px;
     width: 400px;
+    background-color: white;
 }
 
 #criarCategoria h1{
@@ -52,6 +53,7 @@
     width: 400px;
     padding: 8px;
     margin: 8px;
+    background-color: white;
 }
 
 .containerCategoria h1{

@@ -9,5 +9,6 @@
     align-items: center;
     width: 100%;
     padding: 20px 6px;
-    
+    /* background-image: linear-gradient(rgb(206, 176, 255), white, rgb(255, 254, 176)); */
+    background-image: linear-gradient(rgb(227, 210, 255), white, rgb(176, 177, 255));
 }
