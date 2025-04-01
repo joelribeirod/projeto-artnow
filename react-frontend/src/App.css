@@ -7,6 +7,13 @@
   pointer-events: none;
 }
 
+button{
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom" 
+import { useParams, useNavigate, Link } from "react-router-dom" 
 
 import './Projeto.css'
 import Loading from "../../loading/Loading";
@@ -147,6 +147,10 @@ function Projeto() {
             <div id="mainPedidoAdm">
                 {pedido ? (
                     <div id="mainPedido">
+                        <Link to="/mainfeatures/admprojetos">
+                            <span id="voltarProjeto" className="material-symbols-outlined">arrow_back</span>
+                        </Link>
+                        
                         {userData &&
                             <div id="pedidoUserData">                              
                                 <h3>Nome: {userData.nome}</h3>

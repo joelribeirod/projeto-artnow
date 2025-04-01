@@ -51,7 +51,7 @@ function SideNavBar({isAdmin}){
         if(width < 768){
             setPositionBg(true)
             setPosition(true)
-        }else if(width > 768){
+        }else if(width >= 768){
             setPositionBg(false)
             setPosition(false)
         }
@@ -65,9 +65,9 @@ function SideNavBar({isAdmin}){
     window.addEventListener("resize", atualizarTamanho);
 
     window.addEventListener("click", (e)=>{
-        const teste = document.getElementById('mainNavBarBG')
+        const hideMainNavBarBg = document.getElementById('mainNavBarBG')
 
-        if(e.target === teste){
+        if(e.target === hideMainNavBarBg){
             setPositionBg(true)
             setPosition(true)
         }
@@ -79,17 +79,45 @@ function SideNavBar({isAdmin}){
         navigate('/login/signin')
     }
 
+    function esconderSideNavBar(){
+        if(window.innerWidth < 768){
+            setPositionBg(true)
+            setPosition(true)
+        }
+        
+    }
+
     return (
         <div id='NavBar'>
             <span className={position ? "hamburguerAtivo material-symbols-outlined" : "hamburguerDesativo material-symbols-outlined"} id="menuHamburguer" onClick={mudarTamanho}>menu</span>
             <div id='mainNavBar' className={position ? 'desativo' : 'ativo'}>
-                <Link to="/mainfeatures" className={rota === 0 && "rotaAtiva"}>Editar perfil</Link>
-                <Link to="/mainfeatures/criarpedidos" className={rota === 1 && "rotaAtiva"}>Criar um pedido</Link>
-                <Link to="/mainfeatures/meuspedidos" className={rota === 2 && "rotaAtiva"}>Meus pedidos</Link>
+                <Link 
+                    to="/mainfeatures" 
+                    className={rota === 0 && "rotaAtiva"} 
+                    onClick={()=>{esconderSideNavBar()}}>Editar perfil
+                </Link>
+                <Link 
+                    to="/mainfeatures/criarpedidos" 
+                    className={rota === 1 && "rotaAtiva"} 
+                    onClick={()=>{esconderSideNavBar()}}>Criar um pedido
+                </Link>
+                <Link 
+                    to="/mainfeatures/meuspedidos" 
+                    className={rota === 2 && "rotaAtiva"} 
+                    onClick={()=>{esconderSideNavBar()}}>Meus pedidos
+                </Link>
                 <hr className="linha"/>
                 {isAdmin === 0 && <div id='admDiv'>
-                    <Link to="/mainfeatures/admprojetos" className={rota === 3 && "rotaAtiva"}>Visualizar Projetos</Link>
-                    <Link to="/mainfeatures/criarcategorias" className={rota === 4 && "rotaAtiva"}>Nova Categoria</Link>
+                    <Link 
+                        to="/mainfeatures/admprojetos" 
+                        className={rota === 3 && "rotaAtiva"} 
+                        onClick={()=>{esconderSideNavBar()}}>Visualizar Projetos
+                    </Link>
+                    <Link 
+                        to="/mainfeatures/criarcategorias" 
+                        className={rota === 4 && "rotaAtiva"} 
+                        onClick={()=>{esconderSideNavBar()}}>Nova Categoria
+                    </Link>
                     <hr/>
                 </div> }
                 <button id='deslogarBtn' onClick={()=>{deslogar()}}>

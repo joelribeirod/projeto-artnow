@@ -77,9 +77,8 @@ function AdmProjetos() {
             <div id="mainAdmProjetos">
                 
                 {pedidos ? (              
-                    pedidos.filter(
-                        // eslint-disable-next-line 
-                        (pedido)=> categoriaSelecionada === 4 || pedido.status === categoriaSelecionada
+                    pedidos.filter((pedido) => 
+                        categoriaSelecionada === 4 || pedido.status === categoriaSelecionada
                     ).map(pedido => (
                         <div className="pedido">
                             <Link to={`projeto/${pedido.id}`} className="detalhes">
@@ -106,6 +105,7 @@ function AdmProjetos() {
                         </div>
                         
                     ))
+                    
                 ):(
                     <p id="aviso">Nenhum pedido registrado ainda!</p>
                 )}
