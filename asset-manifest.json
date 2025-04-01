@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/projeto-artnow/static/css/main.dfc9cb9f.css",
-    "main.js": "/projeto-artnow/static/js/main.175113ca.js",
+    "main.css": "/projeto-artnow/static/css/main.5d40343e.css",
+    "main.js": "/projeto-artnow/static/js/main.b8f94812.js",
     "static/js/453.dc73245c.chunk.js": "/projeto-artnow/static/js/453.dc73245c.chunk.js",
     "static/media/snow-5852352_1280.jpg": "/projeto-artnow/static/media/snow-5852352_1280.f320f2fa09b0a920eee7.jpg",
     "index.html": "/projeto-artnow/index.html",
     "static/media/loading.svg": "/projeto-artnow/static/media/loading.5ff8599871e56a8a672f0861a01ef3bc.svg",
-    "main.dfc9cb9f.css.map": "/projeto-artnow/static/css/main.dfc9cb9f.css.map",
-    "main.175113ca.js.map": "/projeto-artnow/static/js/main.175113ca.js.map",
+    "main.5d40343e.css.map": "/projeto-artnow/static/css/main.5d40343e.css.map",
+    "main.b8f94812.js.map": "/projeto-artnow/static/js/main.b8f94812.js.map",
     "453.dc73245c.chunk.js.map": "/projeto-artnow/static/js/453.dc73245c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfc9cb9f.css",
-    "static/js/main.175113ca.js"
+    "static/css/main.5d40343e.css",
+    "static/js/main.b8f94812.js"
   ]
 }
