@@ -58,7 +58,7 @@ function FormGet(){
 
         setLoading(true)
 
-        let promise = await fetch('https://projeto-artnow.onrender.com/login/signin', {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/login/signin`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuario)
@@ -81,6 +81,7 @@ function FormGet(){
 
     }
 
+    console.log(process.env.REACT_APP_API_URL)
 
     return(
         <div id='mainFormGetBG'>

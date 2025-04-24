@@ -18,7 +18,7 @@ function CriarCategorias() {
     
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: "GET",
             headers: {
                 'Content-Type' : 'application/json',
@@ -42,7 +42,7 @@ function CriarCategorias() {
             categoriaNome: categoriaNome
         }
 
-        let promise = await fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: "POST",
             headers: {
                 'Content-Type' : 'application/json',
@@ -76,7 +76,7 @@ function CriarCategorias() {
             categoriaAtualizada: novaCategoriaEdit
         }
 
-        let promise = await fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/categorias/${id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type' : 'application/json',
@@ -102,7 +102,7 @@ function CriarCategorias() {
 
     async function deletarCategoria(id) {
         setLoading(true)
-        let promise = await fetch(`https://projeto-artnow.onrender.com/categorias/${id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/categorias/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json',

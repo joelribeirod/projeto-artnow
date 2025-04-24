@@ -23,7 +23,8 @@ function MeusPedidos() {
 
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/pedidos', {
+
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/pedidos`, {
             method: "GET",
             headers: {
                 'Content-Type':'application/json',
@@ -42,7 +43,7 @@ function MeusPedidos() {
     }, [token])
 
     useEffect(()=>{
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -62,7 +63,7 @@ function MeusPedidos() {
     async function deletarProjeto(project) {
         setLoading(true)
         if(project === 'um'){
-            let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoUm.id}`,{
+            let promise = await fetch(`${process.env.REACT_APP_API_URL}/pedidos/${pedidoUm.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',
@@ -81,7 +82,7 @@ function MeusPedidos() {
             })
 
         }else if(project === 'dois'){
-            let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedidoDois.id}`,{
+            let promise = await fetch(`${process.env.REACT_APP_API_URL}/pedidos/${pedidoDois.id}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type':'application/json',

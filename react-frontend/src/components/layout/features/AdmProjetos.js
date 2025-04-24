@@ -15,7 +15,7 @@ function AdmProjetos() {
 
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/pedidos/admGetAll', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/pedidos/admGetAll`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function AdmProjetos() {
 
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',

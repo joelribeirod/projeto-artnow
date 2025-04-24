@@ -22,7 +22,7 @@ function Projeto() {
     useEffect(()=>{
         setLoading(true)
         
-        let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/admGetOne/${id}`, {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/pedidos/admGetOne/${id}`, {
             method: "GET",
             headers: {
                 'Content-Type':'application/json',
@@ -49,7 +49,7 @@ function Projeto() {
 
         setLoading(true)
 
-        let promise = fetch(`https://projeto-artnow.onrender.com/pedidos/admGetUser/${pedido.clienteId}`, {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/pedidos/admGetUser/${pedido.clienteId}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,8 @@ function Projeto() {
 
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -103,7 +104,7 @@ function Projeto() {
 
         setLoading(true)
         
-        let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/admAlterarStatus/${pedido.id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/pedidos/admAlterarStatus/${pedido.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type':'application/json',
@@ -124,7 +125,7 @@ function Projeto() {
     async function deletarProjeto() {
         setLoading(true)
 
-        let promise = await fetch(`https://projeto-artnow.onrender.com/pedidos/${pedido.id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/pedidos/${pedido.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type':'application/json',

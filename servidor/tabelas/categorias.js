@@ -7,6 +7,6 @@ const Categorias = db.sequelize.define('categorias', {
     }
 })
 
-// Categorias.sync()
+Categorias.sync()
 
 module.exports = Categorias

@@ -25,7 +25,7 @@ function EditarPerfil() {
     useEffect(()=>{
         setLoading(true)
 
-        let promise = fetch('https://projeto-artnow.onrender.com/login/user', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/login/user`, {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -93,7 +93,7 @@ function EditarPerfil() {
 
         setLoading(true)
         
-        let promise = await fetch(`https://projeto-artnow.onrender.com/login/edituser/${user.id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/login/edituser/${user.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type':'application/json',
@@ -117,7 +117,7 @@ function EditarPerfil() {
 
         setLoading(true)
 
-        let promise = await fetch(`https://projeto-artnow.onrender.com/login/deleteuser/${user.id}`, {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/login/deleteuser/${user.id}`, {
             method: "POST",
             headers: {
                 'Content-Type':'application/json',

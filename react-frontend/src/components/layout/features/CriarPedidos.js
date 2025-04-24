@@ -24,7 +24,7 @@ function CriarPedidos() {
 
     useEffect(()=>{
         setLoading(true)
-        let promise = fetch('https://projeto-artnow.onrender.com/categorias', {
+        let promise = fetch(`${process.env.REACT_APP_API_URL}/categorias`, {
             method: 'GET',
             headers: {
                 'Content-Type':'application/json',
@@ -87,7 +87,7 @@ function CriarPedidos() {
 
         setLoading(true)
 
-        let promise = await fetch("https://projeto-artnow.onrender.com/pedidos", {
+        let promise = await fetch(`${process.env.REACT_APP_API_URL}/pedidos`, {
             method: "POST",
             headers:{
                 'Authorization': `Bearer ${token}`
