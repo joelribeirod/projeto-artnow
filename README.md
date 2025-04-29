@@ -18,6 +18,34 @@
 ☑ Armazenamento de imagens no servidor <br>
 ☑ Criptografia de senhas com Hash (bcrypt) <br>
 
+# 🎞 Visual do Projeto
+
+## LandPage
+
+<img src="readme-images/land-page.png" alt="LandingPage" width="200"/>
+
+## Sistema de Login
+
+<img src="readme-images/sign-in.png" alt="Entrar com uma conta" width="200"/>
+<img src="readme-images/sign-up.png" alt="Criar uma conta" width="200"/>
+
+## Visualização do perfil
+
+<img src="readme-images/meu-perfil.png" alt="Edição de perfil" width="400"/>
+
+## Tela de Usuário Comum e Tela de Administradores
+
+<img src="readme-images/tela-usuario.png" alt="Tela de usuario" width="80"/>
+<img src="readme-images/tela-admin.png" alt="Tela de admin" width="80"/>
+
+## Pedidos Requisitados
+
+<img src="readme-images/meus-pedidos.png" alt="" width="400"/>
+
+## Página de criação de categorias (Somente Administradores)
+
+<img src="readme-images/criar-categoria.png" alt="" width="400"/>
+
 # ⚙ Como utilizar
 <p>O Projeto é dividido em 2 pastas principais, uma para o Front-end e outra para o Back-end, por isso abra 2 terminais individuais</p> <br>
 
