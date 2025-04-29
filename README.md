@@ -25,18 +25,24 @@
 <img src="readme-images/land-page.png" alt="LandingPage" width="400"/>
 
 ## Sistema de Login
+<div>
+  <img src="readme-images/sign-in.png" alt="Entrar com uma conta" width="240" style="display:inline-block; margin-right: 10px;"/>
+  <img src="readme-images/sign-up.png" alt="Criar uma conta" width="240" style="display:inline-block;"/>
+</div>
 
-<img src="readme-images/sign-in.png" alt="Entrar com uma conta" width="200"/>
-<img src="readme-images/sign-up.png" alt="Criar uma conta" width="200"/>
 
 ## Visualização do perfil
 
-<img src="readme-images/meu-perfil.png" alt="Edição de perfil" width="400"/>
+<img src="readme-images/meu-perfil.png" alt="Edição de perfil" width="480"/>
 
 ## Tela de Usuário Comum e Tela de Administradores
 
-<img src="readme-images/tela-usuario.png" alt="Tela de usuario" width="80"/>
-<img src="readme-images/tela-admin.png" alt="Tela de admin" width="80"/>
+<div>
+  <img src="readme-images/tela-usuario.png" alt="Tela de usuario" width="120"/>
+  <img src="readme-images/tela-admin.png" alt="Tela de admin" width="120"/>
+</div>
+
+
 
 ## Pedidos Requisitados
 
