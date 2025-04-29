@@ -39,7 +39,7 @@
 
 <div>
   <img src="readme-images/tela-usuario.png" alt="Tela de usuario" width="120"/>
-  <img src="readme-images/tela-admin.png" alt="Tela de admin" width="120"/>
+  <img src="readme-images/tela-admin.png" alt="Tela de admin" width="126.3"/>
 </div>
 
 
