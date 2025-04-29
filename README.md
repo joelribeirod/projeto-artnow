@@ -22,7 +22,7 @@
 
 ## LandPage
 
-<img src="readme-images/land-page.png" alt="LandingPage" width="200"/>
+<img src="readme-images/land-page.png" alt="LandingPage" width="400"/>
 
 ## Sistema de Login
 
