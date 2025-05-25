@@ -1,5 +1,5 @@
 # 📖 O que é
-### O projeto Art-Now simula um site onde o cliente requisita um pedido de arte, onde ele envia a descrição de como quer a arte, escolhe uma categoria e envia referências caso queira. Após o cliente criar um pedido, o artista poderá acessar uma sessão onde verá todos os pedidos que foram requisitados, tendo acesso as informações do cliente que o fez o pedido, podendo alterar o status do pedido, recusando ou finalizando o pedido
+### O projeto Art-Now simula um site onde o cliente requisita um pedido de arte, onde ele envia a descrição de como quer a arte, escolhe uma categoria e envia referências caso queira. Após o cliente criar um pedido, o artista poderá acessar uma sessão onde verá todos os pedidos que foram requisitados, tendo acesso as informações do cliente que fez o pedido, podendo alterar o status do pedido, recusando ou finalizando o pedido
 
 # 🛠️ Ferramentas Utilizadas
 
